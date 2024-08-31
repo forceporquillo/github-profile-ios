@@ -11,7 +11,7 @@ import SwiftUI
 struct gitprofileApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            UserListView()
         }
     }
 }
