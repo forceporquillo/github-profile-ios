@@ -1,0 +1,8 @@
+//
+//  ApiConfig.xcconfig
+//  gitprofile
+//
+//  Created by Aljan Porquillo on 9/2/24.
+//
+API_KEY = <ACCESS_TOKEN>
+USERNAME = <USERNAME>
