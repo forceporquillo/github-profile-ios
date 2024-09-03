@@ -72,13 +72,13 @@ struct NetworkComponent {
         
         return links
     }
-    
-    private enum Keys {
-        static let apiKey = "API_KEY"
-        static let username = "USERNAME"
-    }
 
     private struct ApiCredentials {
+        
+        private enum Keys {
+            static let apiKey = "API_KEY"
+            static let username = "USERNAME"
+        }
         
         private static let infoDictionary: [String: Any] = {
             guard let dictionary = Bundle.main.infoDictionary else {
@@ -103,7 +103,7 @@ struct NetworkComponent {
         
         static let basic: String = {
             let basicCredentials = "\(username):\(accessToken)".data(using: .isoLatin1)
-            return basicCredentials!.base64EncodedString()
+            return "Basic \(basicCredentials!.base64EncodedString())"
         }()
     }
 
@@ -124,6 +124,11 @@ extension Result {
             return onFailure(error)
         }
     }
+}
+
+enum FetchStrategy {
+    case cacheOverRemote
+    case invalidateRemotely
 }
 
 typealias CompletionHandler<Success> = (Result<Success, Error>) -> Void
