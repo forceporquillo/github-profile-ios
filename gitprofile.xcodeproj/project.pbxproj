@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		8B5AD3812C83544000AA2571 /* UserDetailsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B5AD3802C83544000AA2571 /* UserDetailsViewModel.swift */; };
 		8B5AD3832C83B7BE00AA2571 /* NetworkComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B5AD3822C83B7BE00AA2571 /* NetworkComponent.swift */; };
-		8B5AD3872C847A4700AA2571 /* UsersRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B5AD3862C847A4700AA2571 /* UsersRepository.swift */; };
 		8B5AD3892C84814900AA2571 /* GetAllUsersNetworkCall.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B5AD3882C84814900AA2571 /* GetAllUsersNetworkCall.swift */; };
 		8B5AD3932C849D6F00AA2571 /* LanguageColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B5AD3922C849D6F00AA2571 /* LanguageColors.swift */; };
 		8B5AD3962C84A58400AA2571 /* github_languages.json in Resources */ = {isa = PBXBuildFile; fileRef = 8B5AD3952C84A35B00AA2571 /* github_languages.json */; };
@@ -51,6 +50,7 @@
 		8BCD6E032C8AC28F00A92BC8 /* GetUserOrgsNetworkCall.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BCD6E022C8AC28F00A92BC8 /* GetUserOrgsNetworkCall.swift */; };
 		8BCD6E052C8AC30700A92BC8 /* UserOrgsResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BCD6E042C8AC30700A92BC8 /* UserOrgsResponse.swift */; };
 		8BCD6E072C8AC90D00A92BC8 /* GetUserOrgsUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BCD6E062C8AC90D00A92BC8 /* GetUserOrgsUseCase.swift */; };
+		8BCD6E082C8B46B600A92BC8 /* UsersRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B5AD3862C847A4700AA2571 /* UsersRepository.swift */; };
 		8BEAA1A12C7E316500AEDB6D /* SlidingTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BEAA1A02C7E316500AEDB6D /* SlidingTabView.swift */; };
 		8BEAA1A32C7E595F00AEDB6D /* RepositoryItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BEAA1A22C7E595F00AEDB6D /* RepositoryItemView.swift */; };
 		8BF98C852C82264300E5139C /* RepositoryListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BF98C842C82264300E5139C /* RepositoryListView.swift */; };
@@ -59,7 +59,7 @@
 /* Begin PBXFileReference section */
 		8B5AD3802C83544000AA2571 /* UserDetailsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDetailsViewModel.swift; sourceTree = "<group>"; };
 		8B5AD3822C83B7BE00AA2571 /* NetworkComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkComponent.swift; sourceTree = "<group>"; };
-		8B5AD3862C847A4700AA2571 /* UsersRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = UsersRepository.swift; path = gitprofile/Domain/UsersRepository.swift; sourceTree = SOURCE_ROOT; };
+		8B5AD3862C847A4700AA2571 /* UsersRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = UsersRepository.swift; path = gitprofile/Data/Repository/UsersRepository.swift; sourceTree = SOURCE_ROOT; };
 		8B5AD3882C84814900AA2571 /* GetAllUsersNetworkCall.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetAllUsersNetworkCall.swift; sourceTree = "<group>"; };
 		8B5AD3922C849D6F00AA2571 /* LanguageColors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LanguageColors.swift; sourceTree = "<group>"; };
 		8B5AD3952C84A35B00AA2571 /* github_languages.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = github_languages.json; sourceTree = "<group>"; };
@@ -88,11 +88,11 @@
 		8BCD6DDA2C85B95600A92BC8 /* UserUseCaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserUseCaseManager.swift; sourceTree = "<group>"; };
 		8BCD6DDE2C85C00A00A92BC8 /* UserNetworkDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserNetworkDataManager.swift; sourceTree = "<group>"; };
 		8BCD6DE12C85C0C500A92BC8 /* UserDataComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDataComponent.swift; sourceTree = "<group>"; };
-		8BCD6DE32C85C77400A92BC8 /* StarredReposRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = StarredReposRepository.swift; path = gitprofile/Data/DI/StarredReposRepository.swift; sourceTree = SOURCE_ROOT; };
+		8BCD6DE32C85C77400A92BC8 /* StarredReposRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = StarredReposRepository.swift; path = gitprofile/Data/Repository/StarredReposRepository.swift; sourceTree = SOURCE_ROOT; };
 		8BCD6DE62C85F46700A92BC8 /* GetUserDetailsNetworkCall.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetUserDetailsNetworkCall.swift; sourceTree = "<group>"; };
 		8BCD6DE82C867ECE00A92BC8 /* GetUserReposNetworkCall.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetUserReposNetworkCall.swift; sourceTree = "<group>"; };
 		8BCD6DEC2C87222500A92BC8 /* GetUserDetailsUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetUserDetailsUseCase.swift; sourceTree = "<group>"; };
-		8BCD6DEE2C8724CE00A92BC8 /* UserDetailsRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = UserDetailsRepository.swift; path = gitprofile/Domain/UseCase/UserDetailsRepository.swift; sourceTree = SOURCE_ROOT; };
+		8BCD6DEE2C8724CE00A92BC8 /* UserDetailsRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = UserDetailsRepository.swift; path = gitprofile/Data/Repository/UserDetailsRepository.swift; sourceTree = SOURCE_ROOT; };
 		8BCD6DF42C89005800A92BC8 /* EntityMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntityMapper.swift; sourceTree = "<group>"; };
 		8BCD6DF62C8A892100A92BC8 /* StarredRepoResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StarredRepoResponse.swift; sourceTree = "<group>"; };
 		8BCD6DF82C8A8A2400A92BC8 /* PaginatedNetworkCall.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaginatedNetworkCall.swift; sourceTree = "<group>"; };
@@ -239,22 +239,11 @@
 			path = Domain;
 			sourceTree = "<group>";
 		};
-		8B6EC88B2C73414100CF7B77 /* Repository */ = {
-			isa = PBXGroup;
-			children = (
-				8B5AD3862C847A4700AA2571 /* UsersRepository.swift */,
-				8BCD6DE32C85C77400A92BC8 /* StarredReposRepository.swift */,
-				8BCD6DEE2C8724CE00A92BC8 /* UserDetailsRepository.swift */,
-			);
-			name = Repository;
-			path = ../Domain/Repository;
-			sourceTree = "<group>";
-		};
 		8B6EC88C2C73414700CF7B77 /* Data */ = {
 			isa = PBXGroup;
 			children = (
+				8BCD6E092C8B46D700A92BC8 /* Repository */,
 				8BCD6DE02C85C0B400A92BC8 /* DI */,
-				8B6EC88B2C73414100CF7B77 /* Repository */,
 				8BCD6DDE2C85C00A00A92BC8 /* UserNetworkDataManager.swift */,
 				8B6EC88D2C73414C00CF7B77 /* Remote */,
 				8BCD6DF42C89005800A92BC8 /* EntityMapper.swift */,
@@ -290,6 +279,16 @@
 				8BCD6DE12C85C0C500A92BC8 /* UserDataComponent.swift */,
 			);
 			path = DI;
+			sourceTree = "<group>";
+		};
+		8BCD6E092C8B46D700A92BC8 /* Repository */ = {
+			isa = PBXGroup;
+			children = (
+				8B5AD3862C847A4700AA2571 /* UsersRepository.swift */,
+				8BCD6DE32C85C77400A92BC8 /* StarredReposRepository.swift */,
+				8BCD6DEE2C8724CE00A92BC8 /* UserDetailsRepository.swift */,
+			);
+			path = Repository;
 			sourceTree = "<group>";
 		};
 		8BF98C812C8224F300E5139C /* Repositories */ = {
@@ -393,12 +392,12 @@
 			files = (
 				8BCD6E012C8AB05E00A92BC8 /* UserOrganizationsListView.swift in Sources */,
 				8B5AD3892C84814900AA2571 /* GetAllUsersNetworkCall.swift in Sources */,
-				8B5AD3872C847A4700AA2571 /* UsersRepository.swift in Sources */,
 				8BCD6DDF2C85C00A00A92BC8 /* UserNetworkDataManager.swift in Sources */,
 				8B6EC86B2C71DEE400CF7B77 /* gitprofileApp.swift in Sources */,
 				8BCD6DF72C8A892100A92BC8 /* StarredRepoResponse.swift in Sources */,
 				8BCD6DED2C87222500A92BC8 /* GetUserDetailsUseCase.swift in Sources */,
 				8B5AD39A2C84BAD800AA2571 /* ServiceLocator.swift in Sources */,
+				8BCD6E082C8B46B600A92BC8 /* UsersRepository.swift in Sources */,
 				8B5AD3932C849D6F00AA2571 /* LanguageColors.swift in Sources */,
 				8BCD6DE22C85C0C500A92BC8 /* UserDataComponent.swift in Sources */,
 				8B6EC8832C72D94500CF7B77 /* UserListView.swift in Sources */,
