@@ -7,9 +7,7 @@
 
 import Foundation
 
-final class UserRepositoryImpl : UsersRepository {
-    
-    private let component = UserDataComponentFactory.create()
+final class UsersRepositoryImpl : UsersRepository {
 
     private var users: Set<UserResponse> = []
     private var since = 0

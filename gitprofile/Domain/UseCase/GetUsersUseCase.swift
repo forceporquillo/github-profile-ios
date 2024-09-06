@@ -16,7 +16,7 @@ class GetUsersUseCase {
     }
     
     func execute() async -> UsersViewState<[UserUiModel]> {
-        return await dataManager.usersNetworkCall()
+        return await dataManager.loadUsers()
             .fold(onSuccess: { users in
                 .success(repos: users.map { user in
                     UserUiModel(
@@ -33,6 +33,13 @@ class GetUsersUseCase {
 
 enum UsersViewState<T> {
     case initial
+    case success(repos: T)
+    case failure(message: String)
+}
+
+enum LoadableViewState<T> {
+    case initial
+    case loaded(oldRepos: T)
     case success(repos: T)
     case failure(message: String)
 }

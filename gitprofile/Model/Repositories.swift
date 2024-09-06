@@ -13,7 +13,7 @@
 import Foundation
 
 // MARK: - RepositoriesResponse
-struct RepositoriesResponse: Codable {
+struct RepositoriesResponse: Codable, Hashable {
 
     let id: Int?
     let nodeID, name, fullName: String?
@@ -142,6 +142,15 @@ struct RepositoriesResponse: Codable {
             case watchers
             case defaultBranch = "default_branch"
         }
+    
+    static func == (lhs: RepositoriesResponse, rhs: RepositoriesResponse) -> Bool {
+        return lhs.id == rhs.id && lhs.nodeID == rhs.nodeID
+    }
+    
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(id)
+        hasher.combine(nodeID)
+    }
 }
 
 // MARK: - License

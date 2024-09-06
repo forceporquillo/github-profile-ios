@@ -9,51 +9,48 @@ import Foundation
 
 @MainActor
 class UserDetailsViewModel : ObservableObject {
+   
+    @Published private (set) var details: UsersViewState<UserDetailsResponse> = UsersViewState.initial
     
-    @Published private (set) var isLoading: Bool = true
-    @Published private (set) var details: UserDetailsResponse = UserDetailsResponse.empty()
-    @Published private (set) var repositories: [RepositoriesResponse] = []
+    @Published private (set) var repositories: LoadableViewState<[UserReposUiModel]> = LoadableViewState.initial
+    @Published private (set) var organizations: LoadableViewState<[UserOrgsUiModel]> = LoadableViewState.initial
+    @Published private (set) var starredRepos: LoadableViewState<[UserStarredReposUiModel]> = LoadableViewState.initial
 
-    func fetchDetails(username: String) async throws {
-        do {
-            self.isLoading = true
-            async let details: UserDetailsResponse = fetchDetails(username: username)
-            async let repositories: [RepositoriesResponse] = fetchRepositories(username: username)
-            let (detailsResult, repositoriesResult) = try await (details, repositories)
-            self.details = detailsResult
-            self.repositories = repositoriesResult
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                self.isLoading = false
-            }
-        } catch {
-            print("Error fetching details: \(error)")
+    private let domainManager = ServiceLocator.domainManager
+
+    private var username = ""
+
+    var task: Task<Void, Error>?
+    
+    func fetchDetails(username: String) async {
+        self.details = UsersViewState.initial
+        self.username = username
+
+        self.details = await domainManager.getUserDetails(username: username)
+        
+        if case .success(_) = details {
+            let repos = await domainManager.getUserRepos(username: username)
+            let orgs = await domainManager.getUserOrgs(username: username)
+            let starred = await domainManager.getStarredRepos(username: username)
+            
+            print("Fetching repos")
+            self.repositories = repos
+            self.organizations = orgs
+            self.starredRepos = starred
         }
     }
 
-    func onLoadMore(page: Int) {
-        
-    }
+    func onLoadMore() {
+        print("Request more")
+        if case let LoadableViewState.success(data) = self.repositories {
+            self.repositories = LoadableViewState.loaded(oldRepos: data)
+        }
 
-    private func fetchDetails(username: String) async throws -> UserDetailsResponse {
-        let url = URL(string: "https://api.github.com/users/\(username)")!
-        let (data, _) = try! await URLSession.shared.data(from: url)
-        let decoder = JSONDecoder()
-        decoder.keyDecodingStrategy = .useDefaultKeys
-        return try decoder.decode(UserDetailsResponse.self, from: data)
-    }
-
-    private func fetchRepositories(username: String) async throws -> [RepositoriesResponse] {
-        let url = URL(string: "https://api.github.com/users/\(username)/repos")!
-        let (data, _) = try await URLSession.shared.data(from: url)
-        let decoder = JSONDecoder()
-        decoder.keyDecodingStrategy = .useDefaultKeys
-        decoder.dateDecodingStrategy = .iso8601
-
-        return try decoder.decode([RepositoriesResponse].self, from: data)
-            .sorted {
-                guard let updatedAtA = $0.updatedAt else { return false }
-                guard let updateAtB = $1.updatedAt else { return false }
-                return updatedAtA > updateAtB
+        task = Task {
+            let repos = await domainManager.getUserRepos(username: self.username)
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                self.repositories = repos
             }
+        }
     }
 }

@@ -9,28 +9,49 @@ import SwiftUI
 
 struct RepositoryListView : View {
     
-    var repositories: [RepositoriesResponse] = []
-    var onLoadMore: (Int) -> Void
-
+    let repositories: LoadableViewState<[UserReposUiModel]>
+    let requestMore: () -> Void
+    
     var body: some View {
         LazyVStack {
-            ForEach(repositories, id: \.id) { repository in
-                RepositoryItemView(repository: repository)
-                    .onAppear {
-                        if repository.id == repositories.last?.id {
-                            print("This is last \(repository.name ?? "")")
-                            onLoadMore(repositories.count + 1)
-                        }
-                    }
+            if case LoadableViewState.initial = repositories {
+                self.showLoadingView
+            } else if case let LoadableViewState.loaded(oldRepos) = repositories {
+                displayRepositories(oldRepos, true)
+            } else if case let LoadableViewState.success(repos) = repositories {
+                displayRepositories(repos, false)
             }
         }
         .padding(.horizontal)
         .listStyle(.plain)
         .scrollContentBackground(.hidden)
         .listRowSeparator(.visible)
+        
+    }
+
+    @ViewBuilder
+    private func displayRepositories(_ repos: [UserReposUiModel], _ showLoading: Bool) -> some View {
+        if showLoading {
+            self.showLoadingView
+        }
+        ForEach(repos, id: \.id) { repository in
+            RepositoryItemView(repository: repository)
+                .onAppear {
+                    if repository.id == repos.last?.id {
+                        requestMore()
+                    }
+                }
+        }
+    }
+    
+    @ViewBuilder
+    private var showLoadingView: some View {
+        ProgressView()
+            .padding(10)
+            .progressViewStyle(.circular)
     }
 }
 
-//#Preview {
-//    //RepositoryListView()
-//}
+#Preview {
+    RepositoryListView(repositories: LoadableViewState.initial) {}
+}

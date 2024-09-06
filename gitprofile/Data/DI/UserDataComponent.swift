@@ -16,6 +16,10 @@ protocol UserDataComponent {
     
     func providesGetUserDetailsNetworkCall() -> GetUserDetailsNetworkCall
     func providesUserDetailsRepository() -> UserDetailsRepository
+    
+    func providesGetStarredReposNetworkCall() -> GetStarredReposNetworkCall
+    
+    func providesGetUserOrgsNetworkCall() -> GetUserOrgsNetworkCall
 }
 
 private class UserComponentImpl : UserDataComponent {
@@ -26,9 +30,11 @@ private class UserComponentImpl : UserDataComponent {
     private static let providesGetUsersNetworkCall = GetAllUsersNetworkCall(NetworkComponent.shared)
     private static let providesGetRepositoriesNetworkCall = GetUserReposNetworkCall(NetworkComponent.shared)
     private static let providesGetUserDetailsNetworkCall = GetUserDetailsNetworkCall(NetworkComponent.shared)
+    private static let providesGetStarredReposNetworkCall = GetStarredReposNetworkCall(NetworkComponent.shared)
+    private static let providesGetUserOrgsNetworkCall = GetUserOrgsNetworkCall(NetworkComponent.shared)
 
     // MARK: - Repositories
-    private static let userRepository = UserRepositoryImpl()
+    private static let userRepository = UsersRepositoryImpl()
     private static let starredRepository = StarredReposRepositoryImpl()
     private static let userDetailsRepository = UserDetailsRepositoryImpl()
     
@@ -55,11 +61,19 @@ private class UserComponentImpl : UserDataComponent {
     func providesUserDetailsRepository() -> UserDetailsRepository {
         return UserComponentImpl.userDetailsRepository
     }
+    
+    func providesGetStarredReposNetworkCall() -> GetStarredReposNetworkCall {
+        return UserComponentImpl.providesGetStarredReposNetworkCall
+    }
+    
+    func providesGetUserOrgsNetworkCall() -> GetUserOrgsNetworkCall {
+        return UserComponentImpl.providesGetUserOrgsNetworkCall
+    }
 }
 
 class UserDataComponentFactory {
 
-    static func create() -> UserDataComponent {
+    func create() -> UserDataComponent {
         return UserComponentImpl.shared
     }
 

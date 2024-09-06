@@ -8,20 +8,49 @@
 
 /* Begin PBXBuildFile section */
 		8B5AD3812C83544000AA2571 /* UserDetailsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B5AD3802C83544000AA2571 /* UserDetailsViewModel.swift */; };
+		8B5AD3832C83B7BE00AA2571 /* NetworkComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B5AD3822C83B7BE00AA2571 /* NetworkComponent.swift */; };
+		8B5AD3872C847A4700AA2571 /* UsersRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B5AD3862C847A4700AA2571 /* UsersRepository.swift */; };
+		8B5AD3892C84814900AA2571 /* GetAllUsersNetworkCall.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B5AD3882C84814900AA2571 /* GetAllUsersNetworkCall.swift */; };
+		8B5AD3932C849D6F00AA2571 /* LanguageColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B5AD3922C849D6F00AA2571 /* LanguageColors.swift */; };
+		8B5AD3962C84A58400AA2571 /* github_languages.json in Resources */ = {isa = PBXBuildFile; fileRef = 8B5AD3952C84A35B00AA2571 /* github_languages.json */; };
+		8B5AD39A2C84BAD800AA2571 /* ServiceLocator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B5AD3992C84BAD800AA2571 /* ServiceLocator.swift */; };
+		8B5AD39E2C84C11100AA2571 /* UserDomainManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B5AD39D2C84C11100AA2571 /* UserDomainManager.swift */; };
+		8B5AD3A02C84D59000AA2571 /* UserResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B5AD39F2C84D59000AA2571 /* UserResponse.swift */; };
+		8B5AD3A42C84DDE700AA2571 /* UserDetailsWithHandle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B5AD3A32C84DDE700AA2571 /* UserDetailsWithHandle.swift */; };
+		8B5AD3A62C84DE8300AA2571 /* UserDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B5AD3A52C84DE8300AA2571 /* UserDetails.swift */; };
+		8B5AD3A82C84DF1A00AA2571 /* GetUsersUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B5AD3A72C84DF1A00AA2571 /* GetUsersUseCase.swift */; };
+		8B5AD3AB2C84E33F00AA2571 /* GetUserReposUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B5AD3AA2C84E33F00AA2571 /* GetUserReposUseCase.swift */; };
+		8B5AD3AD2C84E85800AA2571 /* ApiConfig.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 8B5AD3AC2C84E85800AA2571 /* ApiConfig.xcconfig */; };
 		8B6EC86B2C71DEE400CF7B77 /* gitprofileApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B6EC86A2C71DEE400CF7B77 /* gitprofileApp.swift */; };
 		8B6EC86F2C71DEE600CF7B77 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8B6EC86E2C71DEE600CF7B77 /* Assets.xcassets */; };
 		8B6EC8722C71DEE600CF7B77 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8B6EC8712C71DEE600CF7B77 /* Preview Assets.xcassets */; };
-		8B6EC87D2C71F18900CF7B77 /* Users.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B6EC87C2C71F18900CF7B77 /* Users.swift */; };
 		8B6EC8832C72D94500CF7B77 /* UserListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B6EC8822C72D94500CF7B77 /* UserListView.swift */; };
 		8B6EC8852C72D9C700CF7B77 /* UserCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B6EC8842C72D9C700CF7B77 /* UserCardView.swift */; };
 		8B6EC8912C73417600CF7B77 /* UserViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B6EC8902C73417600CF7B77 /* UserViewModel.swift */; };
-		8B88FD8A2C80F72F001F2733 /* ConnectionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B88FD892C80F72F001F2733 /* ConnectionsView.swift */; };
-		8B88FD8C2C80F8B2001F2733 /* InfoContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B88FD8B2C80F8B2001F2733 /* InfoContentView.swift */; };
-		8B88FD8E2C8104E3001F2733 /* ViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B88FD8D2C8104E3001F2733 /* ViewExtensions.swift */; };
+		8B88FD8C2C80F8B2001F2733 /* UserDetailsHandleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B88FD8B2C80F8B2001F2733 /* UserDetailsHandleView.swift */; };
 		8B88FD902C810E08001F2733 /* StarredRepositoriesListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B88FD8F2C810E08001F2733 /* StarredRepositoriesListView.swift */; };
 		8B88FD922C810F9D001F2733 /* Repositories.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B88FD912C810F9D001F2733 /* Repositories.swift */; };
 		8B9A27ED2C813A3F001F0C00 /* UserDetailsResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B9A27EC2C813A3F001F0C00 /* UserDetailsResponse.swift */; };
-		8BB8354C2C7AF1F8002C79E6 /* UserDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BB8354B2C7AF1F8002C79E6 /* UserDetails.swift */; };
+		8BB8354C2C7AF1F8002C79E6 /* UserDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BB8354B2C7AF1F8002C79E6 /* UserDetailsView.swift */; };
+		8BCD6DD92C85B88A00A92BC8 /* UserDomainComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BCD6DD82C85B88A00A92BC8 /* UserDomainComponent.swift */; };
+		8BCD6DDB2C85B95600A92BC8 /* UserUseCaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BCD6DDA2C85B95600A92BC8 /* UserUseCaseManager.swift */; };
+		8BCD6DDF2C85C00A00A92BC8 /* UserNetworkDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BCD6DDE2C85C00A00A92BC8 /* UserNetworkDataManager.swift */; };
+		8BCD6DE22C85C0C500A92BC8 /* UserDataComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BCD6DE12C85C0C500A92BC8 /* UserDataComponent.swift */; };
+		8BCD6DE42C85C77400A92BC8 /* StarredReposRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BCD6DE32C85C77400A92BC8 /* StarredReposRepository.swift */; };
+		8BCD6DE72C85F46700A92BC8 /* GetUserDetailsNetworkCall.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BCD6DE62C85F46700A92BC8 /* GetUserDetailsNetworkCall.swift */; };
+		8BCD6DE92C867ECE00A92BC8 /* GetUserReposNetworkCall.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BCD6DE82C867ECE00A92BC8 /* GetUserReposNetworkCall.swift */; };
+		8BCD6DED2C87222500A92BC8 /* GetUserDetailsUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BCD6DEC2C87222500A92BC8 /* GetUserDetailsUseCase.swift */; };
+		8BCD6DEF2C8724CE00A92BC8 /* UserDetailsRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BCD6DEE2C8724CE00A92BC8 /* UserDetailsRepository.swift */; };
+		8BCD6DF52C89005800A92BC8 /* EntityMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BCD6DF42C89005800A92BC8 /* EntityMapper.swift */; };
+		8BCD6DF72C8A892100A92BC8 /* StarredRepoResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BCD6DF62C8A892100A92BC8 /* StarredRepoResponse.swift */; };
+		8BCD6DF92C8A8A2400A92BC8 /* PaginatedNetworkCall.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BCD6DF82C8A8A2400A92BC8 /* PaginatedNetworkCall.swift */; };
+		8BCD6DFB2C8A912C00A92BC8 /* GetStarredReposNetworkCall.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BCD6DFA2C8A912C00A92BC8 /* GetStarredReposNetworkCall.swift */; };
+		8BCD6DFD2C8A928500A92BC8 /* GetStarredReposUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BCD6DFC2C8A928500A92BC8 /* GetStarredReposUseCase.swift */; };
+		8BCD6DFF2C8AA9AE00A92BC8 /* UserOrganizationsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BCD6DFE2C8AA9AE00A92BC8 /* UserOrganizationsView.swift */; };
+		8BCD6E012C8AB05E00A92BC8 /* UserOrganizationsListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BCD6E002C8AB05E00A92BC8 /* UserOrganizationsListView.swift */; };
+		8BCD6E032C8AC28F00A92BC8 /* GetUserOrgsNetworkCall.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BCD6E022C8AC28F00A92BC8 /* GetUserOrgsNetworkCall.swift */; };
+		8BCD6E052C8AC30700A92BC8 /* UserOrgsResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BCD6E042C8AC30700A92BC8 /* UserOrgsResponse.swift */; };
+		8BCD6E072C8AC90D00A92BC8 /* GetUserOrgsUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BCD6E062C8AC90D00A92BC8 /* GetUserOrgsUseCase.swift */; };
 		8BEAA1A12C7E316500AEDB6D /* SlidingTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BEAA1A02C7E316500AEDB6D /* SlidingTabView.swift */; };
 		8BEAA1A32C7E595F00AEDB6D /* RepositoryItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BEAA1A22C7E595F00AEDB6D /* RepositoryItemView.swift */; };
 		8BF98C852C82264300E5139C /* RepositoryListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BF98C842C82264300E5139C /* RepositoryListView.swift */; };
@@ -29,21 +58,51 @@
 
 /* Begin PBXFileReference section */
 		8B5AD3802C83544000AA2571 /* UserDetailsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDetailsViewModel.swift; sourceTree = "<group>"; };
+		8B5AD3822C83B7BE00AA2571 /* NetworkComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkComponent.swift; sourceTree = "<group>"; };
+		8B5AD3862C847A4700AA2571 /* UsersRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = UsersRepository.swift; path = gitprofile/Domain/UsersRepository.swift; sourceTree = SOURCE_ROOT; };
+		8B5AD3882C84814900AA2571 /* GetAllUsersNetworkCall.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetAllUsersNetworkCall.swift; sourceTree = "<group>"; };
+		8B5AD3922C849D6F00AA2571 /* LanguageColors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LanguageColors.swift; sourceTree = "<group>"; };
+		8B5AD3952C84A35B00AA2571 /* github_languages.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = github_languages.json; sourceTree = "<group>"; };
+		8B5AD3992C84BAD800AA2571 /* ServiceLocator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceLocator.swift; sourceTree = "<group>"; usesTabs = 0; };
+		8B5AD39D2C84C11100AA2571 /* UserDomainManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDomainManager.swift; sourceTree = "<group>"; };
+		8B5AD39F2C84D59000AA2571 /* UserResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserResponse.swift; sourceTree = "<group>"; };
+		8B5AD3A32C84DDE700AA2571 /* UserDetailsWithHandle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDetailsWithHandle.swift; sourceTree = "<group>"; };
+		8B5AD3A52C84DE8300AA2571 /* UserDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDetails.swift; sourceTree = "<group>"; };
+		8B5AD3A72C84DF1A00AA2571 /* GetUsersUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetUsersUseCase.swift; sourceTree = "<group>"; };
+		8B5AD3AA2C84E33F00AA2571 /* GetUserReposUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetUserReposUseCase.swift; sourceTree = "<group>"; };
+		8B5AD3AC2C84E85800AA2571 /* ApiConfig.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = ApiConfig.xcconfig; sourceTree = "<group>"; };
+		8B5AD3AE2C84EA3500AA2571 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		8B6EC8672C71DEE400CF7B77 /* gitprofile.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = gitprofile.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8B6EC86A2C71DEE400CF7B77 /* gitprofileApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = gitprofileApp.swift; sourceTree = "<group>"; };
 		8B6EC86E2C71DEE600CF7B77 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		8B6EC8712C71DEE600CF7B77 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
-		8B6EC87C2C71F18900CF7B77 /* Users.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Users.swift; sourceTree = "<group>"; };
 		8B6EC8822C72D94500CF7B77 /* UserListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserListView.swift; sourceTree = "<group>"; };
 		8B6EC8842C72D9C700CF7B77 /* UserCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserCardView.swift; sourceTree = "<group>"; };
 		8B6EC8902C73417600CF7B77 /* UserViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserViewModel.swift; sourceTree = "<group>"; };
-		8B88FD892C80F72F001F2733 /* ConnectionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectionsView.swift; sourceTree = "<group>"; };
-		8B88FD8B2C80F8B2001F2733 /* InfoContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoContentView.swift; sourceTree = "<group>"; };
-		8B88FD8D2C8104E3001F2733 /* ViewExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewExtensions.swift; sourceTree = "<group>"; };
+		8B88FD8B2C80F8B2001F2733 /* UserDetailsHandleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDetailsHandleView.swift; sourceTree = "<group>"; };
 		8B88FD8F2C810E08001F2733 /* StarredRepositoriesListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StarredRepositoriesListView.swift; sourceTree = "<group>"; };
 		8B88FD912C810F9D001F2733 /* Repositories.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Repositories.swift; sourceTree = "<group>"; };
 		8B9A27EC2C813A3F001F0C00 /* UserDetailsResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDetailsResponse.swift; sourceTree = "<group>"; };
-		8BB8354B2C7AF1F8002C79E6 /* UserDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDetails.swift; sourceTree = "<group>"; };
+		8BB8354B2C7AF1F8002C79E6 /* UserDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDetailsView.swift; sourceTree = "<group>"; };
+		8BCD6DD82C85B88A00A92BC8 /* UserDomainComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDomainComponent.swift; sourceTree = "<group>"; };
+		8BCD6DDA2C85B95600A92BC8 /* UserUseCaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserUseCaseManager.swift; sourceTree = "<group>"; };
+		8BCD6DDE2C85C00A00A92BC8 /* UserNetworkDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserNetworkDataManager.swift; sourceTree = "<group>"; };
+		8BCD6DE12C85C0C500A92BC8 /* UserDataComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDataComponent.swift; sourceTree = "<group>"; };
+		8BCD6DE32C85C77400A92BC8 /* StarredReposRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = StarredReposRepository.swift; path = gitprofile/Data/DI/StarredReposRepository.swift; sourceTree = SOURCE_ROOT; };
+		8BCD6DE62C85F46700A92BC8 /* GetUserDetailsNetworkCall.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetUserDetailsNetworkCall.swift; sourceTree = "<group>"; };
+		8BCD6DE82C867ECE00A92BC8 /* GetUserReposNetworkCall.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetUserReposNetworkCall.swift; sourceTree = "<group>"; };
+		8BCD6DEC2C87222500A92BC8 /* GetUserDetailsUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetUserDetailsUseCase.swift; sourceTree = "<group>"; };
+		8BCD6DEE2C8724CE00A92BC8 /* UserDetailsRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = UserDetailsRepository.swift; path = gitprofile/Domain/UseCase/UserDetailsRepository.swift; sourceTree = SOURCE_ROOT; };
+		8BCD6DF42C89005800A92BC8 /* EntityMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntityMapper.swift; sourceTree = "<group>"; };
+		8BCD6DF62C8A892100A92BC8 /* StarredRepoResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StarredRepoResponse.swift; sourceTree = "<group>"; };
+		8BCD6DF82C8A8A2400A92BC8 /* PaginatedNetworkCall.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaginatedNetworkCall.swift; sourceTree = "<group>"; };
+		8BCD6DFA2C8A912C00A92BC8 /* GetStarredReposNetworkCall.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetStarredReposNetworkCall.swift; sourceTree = "<group>"; };
+		8BCD6DFC2C8A928500A92BC8 /* GetStarredReposUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetStarredReposUseCase.swift; sourceTree = "<group>"; };
+		8BCD6DFE2C8AA9AE00A92BC8 /* UserOrganizationsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserOrganizationsView.swift; sourceTree = "<group>"; };
+		8BCD6E002C8AB05E00A92BC8 /* UserOrganizationsListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserOrganizationsListView.swift; sourceTree = "<group>"; };
+		8BCD6E022C8AC28F00A92BC8 /* GetUserOrgsNetworkCall.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetUserOrgsNetworkCall.swift; sourceTree = "<group>"; };
+		8BCD6E042C8AC30700A92BC8 /* UserOrgsResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserOrgsResponse.swift; sourceTree = "<group>"; };
+		8BCD6E062C8AC90D00A92BC8 /* GetUserOrgsUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetUserOrgsUseCase.swift; sourceTree = "<group>"; };
 		8BEAA1A02C7E316500AEDB6D /* SlidingTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlidingTabView.swift; sourceTree = "<group>"; };
 		8BEAA1A22C7E595F00AEDB6D /* RepositoryItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepositoryItemView.swift; sourceTree = "<group>"; };
 		8BF98C842C82264300E5139C /* RepositoryListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepositoryListView.swift; sourceTree = "<group>"; };
@@ -60,9 +119,18 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		8B5AD3982C84BAC000AA2571 /* Inject */ = {
+			isa = PBXGroup;
+			children = (
+				8B5AD3992C84BAD800AA2571 /* ServiceLocator.swift */,
+			);
+			path = Inject;
+			sourceTree = "<group>";
+		};
 		8B6EC85E2C71DEE400CF7B77 = {
 			isa = PBXGroup;
 			children = (
+				8B5AD3AC2C84E85800AA2571 /* ApiConfig.xcconfig */,
 				8B6EC8692C71DEE400CF7B77 /* gitprofile */,
 				8B6EC8682C71DEE400CF7B77 /* Products */,
 			);
@@ -79,14 +147,16 @@
 		8B6EC8692C71DEE400CF7B77 /* gitprofile */ = {
 			isa = PBXGroup;
 			children = (
+				8B5AD3AE2C84EA3500AA2571 /* Info.plist */,
+				8B5AD3982C84BAC000AA2571 /* Inject */,
 				8B6EC88C2C73414700CF7B77 /* Data */,
 				8B6EC88A2C73413B00CF7B77 /* Domain */,
-				8B6EC8812C72D91F00CF7B77 /* View */,
 				8B6EC87F2C72D8FB00CF7B77 /* Model */,
-				8B6EC87E2C72D8EB00CF7B77 /* Users */,
+				8B6EC8812C72D91F00CF7B77 /* View */,
+				8B6EC8702C71DEE600CF7B77 /* Preview Content */,
+				8B5AD3952C84A35B00AA2571 /* github_languages.json */,
 				8B6EC86A2C71DEE400CF7B77 /* gitprofileApp.swift */,
 				8B6EC86E2C71DEE600CF7B77 /* Assets.xcassets */,
-				8B6EC8702C71DEE600CF7B77 /* Preview Content */,
 			);
 			path = gitprofile;
 			sourceTree = "<group>";
@@ -99,19 +169,16 @@
 			path = "Preview Content";
 			sourceTree = "<group>";
 		};
-		8B6EC87E2C72D8EB00CF7B77 /* Users */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Users;
-			sourceTree = "<group>";
-		};
 		8B6EC87F2C72D8FB00CF7B77 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				8B6EC87C2C71F18900CF7B77 /* Users.swift */,
 				8B88FD912C810F9D001F2733 /* Repositories.swift */,
 				8B9A27EC2C813A3F001F0C00 /* UserDetailsResponse.swift */,
+				8B5AD39F2C84D59000AA2571 /* UserResponse.swift */,
+				8B5AD3A32C84DDE700AA2571 /* UserDetailsWithHandle.swift */,
+				8B5AD3A52C84DE8300AA2571 /* UserDetails.swift */,
+				8BCD6DF62C8A892100A92BC8 /* StarredRepoResponse.swift */,
+				8BCD6E042C8AC30700A92BC8 /* UserOrgsResponse.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -141,11 +208,9 @@
 				8BF98C832C82250400E5139C /* StarredRepositories */,
 				8BF98C822C8224FE00E5139C /* Organizations */,
 				8BF98C812C8224F300E5139C /* Repositories */,
-				8BB8354B2C7AF1F8002C79E6 /* UserDetails.swift */,
+				8BB8354B2C7AF1F8002C79E6 /* UserDetailsView.swift */,
 				8BEAA1A02C7E316500AEDB6D /* SlidingTabView.swift */,
-				8B88FD892C80F72F001F2733 /* ConnectionsView.swift */,
-				8B88FD8B2C80F8B2001F2733 /* InfoContentView.swift */,
-				8B88FD8D2C8104E3001F2733 /* ViewExtensions.swift */,
+				8B88FD8B2C80F8B2001F2733 /* UserDetailsHandleView.swift */,
 				8B5AD3802C83544000AA2571 /* UserDetailsViewModel.swift */,
 			);
 			path = Details;
@@ -154,6 +219,11 @@
 		8B6EC8892C73413500CF7B77 /* UseCase */ = {
 			isa = PBXGroup;
 			children = (
+				8B5AD3A72C84DF1A00AA2571 /* GetUsersUseCase.swift */,
+				8B5AD3AA2C84E33F00AA2571 /* GetUserReposUseCase.swift */,
+				8BCD6DEC2C87222500A92BC8 /* GetUserDetailsUseCase.swift */,
+				8BCD6DFC2C8A928500A92BC8 /* GetStarredReposUseCase.swift */,
+				8BCD6E062C8AC90D00A92BC8 /* GetUserOrgsUseCase.swift */,
 			);
 			path = UseCase;
 			sourceTree = "<group>";
@@ -161,8 +231,10 @@
 		8B6EC88A2C73413B00CF7B77 /* Domain */ = {
 			isa = PBXGroup;
 			children = (
-				8B6EC88B2C73414100CF7B77 /* Repository */,
+				8BCD6DDA2C85B95600A92BC8 /* UserUseCaseManager.swift */,
+				8BCD6DD52C85B73900A92BC8 /* DI */,
 				8B6EC8892C73413500CF7B77 /* UseCase */,
+				8B5AD39D2C84C11100AA2571 /* UserDomainManager.swift */,
 			);
 			path = Domain;
 			sourceTree = "<group>";
@@ -170,15 +242,22 @@
 		8B6EC88B2C73414100CF7B77 /* Repository */ = {
 			isa = PBXGroup;
 			children = (
+				8B5AD3862C847A4700AA2571 /* UsersRepository.swift */,
+				8BCD6DE32C85C77400A92BC8 /* StarredReposRepository.swift */,
+				8BCD6DEE2C8724CE00A92BC8 /* UserDetailsRepository.swift */,
 			);
-			path = Repository;
+			name = Repository;
+			path = ../Domain/Repository;
 			sourceTree = "<group>";
 		};
 		8B6EC88C2C73414700CF7B77 /* Data */ = {
 			isa = PBXGroup;
 			children = (
-				8B6EC88E2C73415800CF7B77 /* Local */,
+				8BCD6DE02C85C0B400A92BC8 /* DI */,
+				8B6EC88B2C73414100CF7B77 /* Repository */,
+				8BCD6DDE2C85C00A00A92BC8 /* UserNetworkDataManager.swift */,
 				8B6EC88D2C73414C00CF7B77 /* Remote */,
+				8BCD6DF42C89005800A92BC8 /* EntityMapper.swift */,
 			);
 			path = Data;
 			sourceTree = "<group>";
@@ -186,20 +265,37 @@
 		8B6EC88D2C73414C00CF7B77 /* Remote */ = {
 			isa = PBXGroup;
 			children = (
+				8B5AD3822C83B7BE00AA2571 /* NetworkComponent.swift */,
+				8B5AD3882C84814900AA2571 /* GetAllUsersNetworkCall.swift */,
+				8BCD6DE62C85F46700A92BC8 /* GetUserDetailsNetworkCall.swift */,
+				8BCD6DE82C867ECE00A92BC8 /* GetUserReposNetworkCall.swift */,
+				8BCD6DFA2C8A912C00A92BC8 /* GetStarredReposNetworkCall.swift */,
+				8BCD6DF82C8A8A2400A92BC8 /* PaginatedNetworkCall.swift */,
+				8BCD6E022C8AC28F00A92BC8 /* GetUserOrgsNetworkCall.swift */,
 			);
 			path = Remote;
 			sourceTree = "<group>";
 		};
-		8B6EC88E2C73415800CF7B77 /* Local */ = {
+		8BCD6DD52C85B73900A92BC8 /* DI */ = {
 			isa = PBXGroup;
 			children = (
+				8BCD6DD82C85B88A00A92BC8 /* UserDomainComponent.swift */,
 			);
-			path = Local;
+			path = DI;
+			sourceTree = "<group>";
+		};
+		8BCD6DE02C85C0B400A92BC8 /* DI */ = {
+			isa = PBXGroup;
+			children = (
+				8BCD6DE12C85C0C500A92BC8 /* UserDataComponent.swift */,
+			);
+			path = DI;
 			sourceTree = "<group>";
 		};
 		8BF98C812C8224F300E5139C /* Repositories */ = {
 			isa = PBXGroup;
 			children = (
+				8B5AD3922C849D6F00AA2571 /* LanguageColors.swift */,
 				8BEAA1A22C7E595F00AEDB6D /* RepositoryItemView.swift */,
 				8BF98C842C82264300E5139C /* RepositoryListView.swift */,
 			);
@@ -209,6 +305,8 @@
 		8BF98C822C8224FE00E5139C /* Organizations */ = {
 			isa = PBXGroup;
 			children = (
+				8BCD6DFE2C8AA9AE00A92BC8 /* UserOrganizationsView.swift */,
+				8BCD6E002C8AB05E00A92BC8 /* UserOrganizationsListView.swift */,
 			);
 			path = Organizations;
 			sourceTree = "<group>";
@@ -280,6 +378,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				8B6EC8722C71DEE600CF7B77 /* Preview Assets.xcassets in Resources */,
+				8B5AD3AD2C84E85800AA2571 /* ApiConfig.xcconfig in Resources */,
+				8B5AD3962C84A58400AA2571 /* github_languages.json in Resources */,
 				8B6EC86F2C71DEE600CF7B77 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -291,22 +391,49 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8B88FD8E2C8104E3001F2733 /* ViewExtensions.swift in Sources */,
-				8B6EC87D2C71F18900CF7B77 /* Users.swift in Sources */,
+				8BCD6E012C8AB05E00A92BC8 /* UserOrganizationsListView.swift in Sources */,
+				8B5AD3892C84814900AA2571 /* GetAllUsersNetworkCall.swift in Sources */,
+				8B5AD3872C847A4700AA2571 /* UsersRepository.swift in Sources */,
+				8BCD6DDF2C85C00A00A92BC8 /* UserNetworkDataManager.swift in Sources */,
 				8B6EC86B2C71DEE400CF7B77 /* gitprofileApp.swift in Sources */,
+				8BCD6DF72C8A892100A92BC8 /* StarredRepoResponse.swift in Sources */,
+				8BCD6DED2C87222500A92BC8 /* GetUserDetailsUseCase.swift in Sources */,
+				8B5AD39A2C84BAD800AA2571 /* ServiceLocator.swift in Sources */,
+				8B5AD3932C849D6F00AA2571 /* LanguageColors.swift in Sources */,
+				8BCD6DE22C85C0C500A92BC8 /* UserDataComponent.swift in Sources */,
 				8B6EC8832C72D94500CF7B77 /* UserListView.swift in Sources */,
-				8B88FD8A2C80F72F001F2733 /* ConnectionsView.swift in Sources */,
+				8B5AD3832C83B7BE00AA2571 /* NetworkComponent.swift in Sources */,
 				8BEAA1A12C7E316500AEDB6D /* SlidingTabView.swift in Sources */,
+				8BCD6E032C8AC28F00A92BC8 /* GetUserOrgsNetworkCall.swift in Sources */,
+				8BCD6DF92C8A8A2400A92BC8 /* PaginatedNetworkCall.swift in Sources */,
+				8BCD6DE92C867ECE00A92BC8 /* GetUserReposNetworkCall.swift in Sources */,
+				8B5AD3A82C84DF1A00AA2571 /* GetUsersUseCase.swift in Sources */,
+				8B5AD3AB2C84E33F00AA2571 /* GetUserReposUseCase.swift in Sources */,
 				8B5AD3812C83544000AA2571 /* UserDetailsViewModel.swift in Sources */,
 				8B6EC8852C72D9C700CF7B77 /* UserCardView.swift in Sources */,
-				8B88FD8C2C80F8B2001F2733 /* InfoContentView.swift in Sources */,
+				8B5AD39E2C84C11100AA2571 /* UserDomainManager.swift in Sources */,
+				8BCD6DE72C85F46700A92BC8 /* GetUserDetailsNetworkCall.swift in Sources */,
+				8B5AD3A62C84DE8300AA2571 /* UserDetails.swift in Sources */,
+				8BCD6DF52C89005800A92BC8 /* EntityMapper.swift in Sources */,
+				8B88FD8C2C80F8B2001F2733 /* UserDetailsHandleView.swift in Sources */,
+				8BCD6DEF2C8724CE00A92BC8 /* UserDetailsRepository.swift in Sources */,
 				8B88FD902C810E08001F2733 /* StarredRepositoriesListView.swift in Sources */,
 				8B88FD922C810F9D001F2733 /* Repositories.swift in Sources */,
 				8BEAA1A32C7E595F00AEDB6D /* RepositoryItemView.swift in Sources */,
 				8B9A27ED2C813A3F001F0C00 /* UserDetailsResponse.swift in Sources */,
+				8BCD6DFB2C8A912C00A92BC8 /* GetStarredReposNetworkCall.swift in Sources */,
+				8BCD6DD92C85B88A00A92BC8 /* UserDomainComponent.swift in Sources */,
+				8BCD6DFF2C8AA9AE00A92BC8 /* UserOrganizationsView.swift in Sources */,
 				8BF98C852C82264300E5139C /* RepositoryListView.swift in Sources */,
+				8BCD6E052C8AC30700A92BC8 /* UserOrgsResponse.swift in Sources */,
 				8B6EC8912C73417600CF7B77 /* UserViewModel.swift in Sources */,
-				8BB8354C2C7AF1F8002C79E6 /* UserDetails.swift in Sources */,
+				8BB8354C2C7AF1F8002C79E6 /* UserDetailsView.swift in Sources */,
+				8B5AD3A02C84D59000AA2571 /* UserResponse.swift in Sources */,
+				8B5AD3A42C84DDE700AA2571 /* UserDetailsWithHandle.swift in Sources */,
+				8BCD6E072C8AC90D00A92BC8 /* GetUserOrgsUseCase.swift in Sources */,
+				8BCD6DE42C85C77400A92BC8 /* StarredReposRepository.swift in Sources */,
+				8BCD6DFD2C8A928500A92BC8 /* GetStarredReposUseCase.swift in Sources */,
+				8BCD6DDB2C85B95600A92BC8 /* UserUseCaseManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -315,6 +442,7 @@
 /* Begin XCBuildConfiguration section */
 		8B6EC8732C71DEE600CF7B77 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 8B5AD3AC2C84E85800AA2571 /* ApiConfig.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
@@ -443,11 +571,12 @@
 				DEVELOPMENT_TEAM = Z2PG8K834A;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = gitprofile/Info.plist;
+				INFOPLIST_KEY_LSApplicationCategoryType = "";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -472,11 +601,12 @@
 				DEVELOPMENT_TEAM = Z2PG8K834A;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = gitprofile/Info.plist;
+				INFOPLIST_KEY_LSApplicationCategoryType = "";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

@@ -1,13 +1,13 @@
 //
-//  GetUserDetailsNetworkCall.swift
+//  GetUserOrgsNetworkCall.swift
 //  gitprofile
 //
-//  Created by Aljan Porquillo on 9/2/24.
+//  Created by Aljan Porquillo on 9/6/24.
 //
 
 import Foundation
 
-class GetUserDetailsNetworkCall {
+class GetUserOrgsNetworkCall {
     
     private let networkManager: NetworkComponent
     
@@ -25,35 +25,37 @@ class GetUserDetailsNetworkCall {
 
     func execute(
         username: String,
-        strategy: FetchStrategy = FetchStrategy.cacheOverRemote,
-        completion: @escaping CompletionHandler<UserDetailsResponse>
+        completion: @escaping CompletionHandler<Paginated<[UserOrgsResponse]>>
     ) {
-        urlComponents.path = "/users/\(username)"
-
+        urlComponents.path = "/users/\(username)/orgs"
         var urlRequest = networkManager.createUrlRequest(url: self.urlComponents.url!, method: "GET")
         
-//        switch strategy {
-//        case .cacheOverRemote:
-//            urlRequest.cachePolicy = .returnCacheDataElseLoad
-//        case .invalidateRemotely:
-//            urlRequest.cachePolicy = .reloadIgnoringLocalCacheData
-//        }
-
         URLSession.shared.dataTask(with: urlRequest) { data, response, error in
             if let error = error {
                 completion(.failure(error))
                 return
             }
+            let nextLink = self.networkManager.parseLinkHeader(response?.headerField(forKey: "Link") ?? "")["next"]
+            let since = self.networkManager.getQueryParameterValue(urlString: nextLink ?? "", param: "page")
+            let page = Int(since ?? "-1") ?? -1
+            
             guard let data = data else {
-                completion(.failure(NSError(domain: Bundle.main.bundleIdentifier!, code: 204, userInfo: [NSLocalizedDescriptionKey: "No user details available from remote source"])))
+                print("User has no organizations")
+                completion(.success(Paginated(data: [], next: page)))
                 return
             }
             do {
-                let decodedResponse = try self.networkManager.decoder.decode(UserDetailsResponse.self, from: data)
-                completion(.success(decodedResponse))
+                let decodedResponse: [UserOrgsResponse] = try self.networkManager.decoder.decode([UserOrgsResponse].self, from: data)
+                print("User has no organizaitons")
+                completion(.success(Paginated(data: decodedResponse, next: page)))
             } catch {
                 completion(.failure(error))
             }
         }.resume()
     }
+}
+
+struct Paginated<T> {
+    var data: T
+    var next: Int
 }

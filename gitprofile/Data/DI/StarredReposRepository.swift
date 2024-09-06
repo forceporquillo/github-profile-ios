@@ -8,7 +8,7 @@
 import Foundation
 
 class StarredReposRepositoryImpl : StarredReposRepository {
-    
+
     private var userRepos: [String: Set<RepositoriesResponse>] = [:]
     private var nextPage: [String: Int] = [:]
 
@@ -26,8 +26,8 @@ class StarredReposRepositoryImpl : StarredReposRepository {
     
     func getStarredRepos(username: String) -> [RepositoriesResponse] {
         return self.userRepos[username]?.sorted {
-            guard let updatedAtA = $0.updatedAt else { return false }
-            guard let updateAtB = $1.updatedAt else { return false }
+            guard let updatedAtA = $0.stargazersCount else { return false }
+            guard let updateAtB = $1.stargazersCount else { return false }
             return updatedAtA > updateAtB
         } ?? []
     }
@@ -40,7 +40,13 @@ class StarredReposRepositoryImpl : StarredReposRepository {
         guard let page = page else {
             return
         }
-        self.nextPage[username] = Int(page)
+        let oldPage = self.nextPage[username]
+        let nextPage = Int(page)
+        if oldPage == nextPage {
+            self.nextPage[username] = -1
+        } else {
+            self.nextPage[username] = nextPage
+        }
     }
 }
 

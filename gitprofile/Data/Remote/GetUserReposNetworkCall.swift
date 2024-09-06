@@ -32,13 +32,13 @@ class GetUserReposNetworkCall {
         urlComponents.queryItems = params
         
         var urlRequest = networkManager.createUrlRequest(url: self.urlComponents.url!, method: "GET")
-
-        switch strategy {
-        case .cacheOverRemote:
-            urlRequest.cachePolicy = .returnCacheDataElseLoad
-        case .invalidateRemotely:
-            urlRequest.cachePolicy = .reloadIgnoringLocalCacheData
-        }
+//        urlRequest.cachePolicy = .useProtocolCachePolicy
+//        switch strategy {
+//        case .cacheOverRemote:
+//            urlRequest.cachePolicy = .returnCacheDataElseLoad
+//        case .invalidateRemotely:
+//            urlRequest.cachePolicy = .reloadIgnoringLocalCacheData
+//        }
 
         URLSession.shared.dataTask(with: urlRequest) { data, response, error in
             if let error = error {

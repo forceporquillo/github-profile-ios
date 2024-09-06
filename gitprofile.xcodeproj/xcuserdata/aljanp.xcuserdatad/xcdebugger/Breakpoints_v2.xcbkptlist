@@ -36,5 +36,276 @@
             landmarkType = "24">
          </BreakpointContent>
       </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "2E619C80-719F-429B-B98C-559918AB0ADC"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "gitprofile/Data/Remote/GetUsersNetworkCall.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "67"
+            endingLineNumber = "67"
+            landmarkName = "execute(params:strategy:completion:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "2E619C80-719F-429B-B98C-559918AB0ADC - 7aba5c2ad79772d5"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 @Sendable (Swift.Optional&lt;Foundation.Data&gt;, Swift.Optional&lt;__C.NSURLResponse&gt;, Swift.Optional&lt;Swift.Error&gt;) -&gt; () in gitprofile.GetUsersNetworkCall.execute&lt;&#x3c4;_0_0 where &#x3c4;_0_0: Swift.Decodable&gt;(params: Swift.Optional&lt;Swift.Array&lt;Foundation.URLQueryItem&gt;&gt;, strategy: gitprofile.FetchStrategy, completion: (Swift.Result&lt;gitprofile.GetUsersResponse&lt;&#x3c4;_0_0&gt;, Swift.Error&gt;) -&gt; ()) -&gt; ()"
+                  moduleName = "gitprofile"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/aljanp/Documents/GitHub/git-profile-ios/gitprofile/gitprofile/Data/Remote/GetUsersNetworkCall.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "49"
+                  endingLineNumber = "49"
+                  offsetFromSymbolStart = "2332">
+               </Location>
+               <Location
+                  uuid = "2E619C80-719F-429B-B98C-559918AB0ADC - 7aba5c2ad7977269"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 @Sendable (Swift.Optional&lt;Foundation.Data&gt;, Swift.Optional&lt;__C.NSURLResponse&gt;, Swift.Optional&lt;Swift.Error&gt;) -&gt; () in gitprofile.GetUsersNetworkCall.execute&lt;&#x3c4;_0_0 where &#x3c4;_0_0: Swift.Decodable&gt;(params: Swift.Optional&lt;Swift.Array&lt;Foundation.URLQueryItem&gt;&gt;, strategy: gitprofile.FetchStrategy, completion: (Swift.Result&lt;gitprofile.GetUsersResponse&lt;&#x3c4;_0_0&gt;, Swift.Error&gt;) -&gt; ()) -&gt; ()"
+                  moduleName = "gitprofile"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/aljanp/Documents/GitHub/git-profile-ios/gitprofile/gitprofile/Data/Remote/GetUsersNetworkCall.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "53"
+                  endingLineNumber = "53"
+                  offsetFromSymbolStart = "2332">
+               </Location>
+               <Location
+                  uuid = "2E619C80-719F-429B-B98C-559918AB0ADC - acf1ec344cf97194"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 @Sendable (Swift.Optional&lt;Foundation.Data&gt;, Swift.Optional&lt;__C.NSURLResponse&gt;, Swift.Optional&lt;Swift.Error&gt;) -&gt; () in gitprofile.GetUsersNetworkCall.execute(params: Swift.Optional&lt;Swift.Array&lt;Foundation.URLQueryItem&gt;&gt;, strategy: gitprofile.FetchStrategy, completion: (Swift.Result&lt;gitprofile.GetUsersResponse, Swift.Error&gt;) -&gt; ()) -&gt; ()"
+                  moduleName = "gitprofile"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/aljanp/Documents/GitHub/git-profile-ios/gitprofile/gitprofile/Data/Remote/GetUsersNetworkCall.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "53"
+                  endingLineNumber = "53"
+                  offsetFromSymbolStart = "1364">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "A23B193B-6DA6-463B-8EA0-A9224917C736"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "gitprofile/Data/Remote/GetUsersNetworkCall.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "65"
+            endingLineNumber = "65"
+            landmarkName = "execute(params:strategy:completion:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "A23B193B-6DA6-463B-8EA0-A9224917C736 - 7aba5c2ad79772b4"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 @Sendable (Swift.Optional&lt;Foundation.Data&gt;, Swift.Optional&lt;__C.NSURLResponse&gt;, Swift.Optional&lt;Swift.Error&gt;) -&gt; () in gitprofile.GetUsersNetworkCall.execute&lt;&#x3c4;_0_0 where &#x3c4;_0_0: Swift.Decodable&gt;(params: Swift.Optional&lt;Swift.Array&lt;Foundation.URLQueryItem&gt;&gt;, strategy: gitprofile.FetchStrategy, completion: (Swift.Result&lt;gitprofile.GetUsersResponse&lt;&#x3c4;_0_0&gt;, Swift.Error&gt;) -&gt; ()) -&gt; ()"
+                  moduleName = "gitprofile"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/aljanp/Documents/GitHub/git-profile-ios/gitprofile/gitprofile/Data/Remote/GetUsersNetworkCall.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "48"
+                  endingLineNumber = "48"
+                  offsetFromSymbolStart = "2220">
+               </Location>
+               <Location
+                  uuid = "A23B193B-6DA6-463B-8EA0-A9224917C736 - acf1ec344cf971b5"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 @Sendable (Swift.Optional&lt;Foundation.Data&gt;, Swift.Optional&lt;__C.NSURLResponse&gt;, Swift.Optional&lt;Swift.Error&gt;) -&gt; () in gitprofile.GetUsersNetworkCall.execute(params: Swift.Optional&lt;Swift.Array&lt;Foundation.URLQueryItem&gt;&gt;, strategy: gitprofile.FetchStrategy, completion: (Swift.Result&lt;gitprofile.GetUsersResponse, Swift.Error&gt;) -&gt; ()) -&gt; ()"
+                  moduleName = "gitprofile"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/aljanp/Documents/GitHub/git-profile-ios/gitprofile/gitprofile/Data/Remote/GetUsersNetworkCall.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "52"
+                  endingLineNumber = "52"
+                  offsetFromSymbolStart = "1256">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "2DA2EF2C-63AF-4CF1-AD88-5575F5F684E5"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "gitprofile/Data/Remote/GetUserDetailsNetworkCall.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "46"
+            endingLineNumber = "46"
+            landmarkName = "execute(username:strategy:completion:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "907A876C-2F39-488E-90BD-4476E7DED0C3"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "gitprofile/Data/Remote/GetUsersNetworkCall.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "69"
+            endingLineNumber = "69"
+            landmarkName = "execute(params:strategy:completion:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "907A876C-2F39-488E-90BD-4476E7DED0C3 - 7aba5c2ad79771ab"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 @Sendable (Swift.Optional&lt;Foundation.Data&gt;, Swift.Optional&lt;__C.NSURLResponse&gt;, Swift.Optional&lt;Swift.Error&gt;) -&gt; () in gitprofile.GetUsersNetworkCall.execute&lt;&#x3c4;_0_0 where &#x3c4;_0_0: Swift.Decodable&gt;(params: Swift.Optional&lt;Swift.Array&lt;Foundation.URLQueryItem&gt;&gt;, strategy: gitprofile.FetchStrategy, completion: (Swift.Result&lt;gitprofile.GetUsersResponse&lt;&#x3c4;_0_0&gt;, Swift.Error&gt;) -&gt; ()) -&gt; ()"
+                  moduleName = "gitprofile"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/aljanp/Documents/GitHub/git-profile-ios/gitprofile/gitprofile/Data/Remote/GetUsersNetworkCall.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "55"
+                  endingLineNumber = "55"
+                  offsetFromSymbolStart = "2800">
+               </Location>
+               <Location
+                  uuid = "907A876C-2F39-488E-90BD-4476E7DED0C3 - acf1ec344cf97256"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 @Sendable (Swift.Optional&lt;Foundation.Data&gt;, Swift.Optional&lt;__C.NSURLResponse&gt;, Swift.Optional&lt;Swift.Error&gt;) -&gt; () in gitprofile.GetUsersNetworkCall.execute(params: Swift.Optional&lt;Swift.Array&lt;Foundation.URLQueryItem&gt;&gt;, strategy: gitprofile.FetchStrategy, completion: (Swift.Result&lt;gitprofile.GetUsersResponse, Swift.Error&gt;) -&gt; ()) -&gt; ()"
+                  moduleName = "gitprofile"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/aljanp/Documents/GitHub/git-profile-ios/gitprofile/gitprofile/Data/Remote/GetUsersNetworkCall.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "55"
+                  endingLineNumber = "55"
+                  offsetFromSymbolStart = "1564">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "19988DB0-E70A-4549-8A4C-63C1C32794A8"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "gitprofile/Data/Remote/GetUsersNetworkCall.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "43"
+            endingLineNumber = "43"
+            landmarkName = "execute(params:strategy:completion:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "19988DB0-E70A-4549-8A4C-63C1C32794A8 - 76618c35bf29111"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "gitprofile.GetUsersNetworkCall.execute(params: Swift.Optional&lt;Swift.Array&lt;Foundation.URLQueryItem&gt;&gt;, strategy: gitprofile.FetchStrategy, completion: (Swift.Result&lt;gitprofile.GetUsersResponse, Swift.Error&gt;) -&gt; ()) -&gt; ()"
+                  moduleName = "gitprofile"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/aljanp/Documents/GitHub/git-profile-ios/gitprofile/gitprofile/Data/Remote/GetUsersNetworkCall.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "38"
+                  endingLineNumber = "38"
+                  offsetFromSymbolStart = "1088">
+               </Location>
+               <Location
+                  uuid = "19988DB0-E70A-4549-8A4C-63C1C32794A8 - acf1ec344cf97066"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 @Sendable (Swift.Optional&lt;Foundation.Data&gt;, Swift.Optional&lt;__C.NSURLResponse&gt;, Swift.Optional&lt;Swift.Error&gt;) -&gt; () in gitprofile.GetUsersNetworkCall.execute(params: Swift.Optional&lt;Swift.Array&lt;Foundation.URLQueryItem&gt;&gt;, strategy: gitprofile.FetchStrategy, completion: (Swift.Result&lt;gitprofile.GetUsersResponse, Swift.Error&gt;) -&gt; ()) -&gt; ()"
+                  moduleName = "gitprofile"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/aljanp/Documents/GitHub/git-profile-ios/gitprofile/gitprofile/Data/Remote/GetUsersNetworkCall.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "39"
+                  endingLineNumber = "39"
+                  offsetFromSymbolStart = "156">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "EEFA0083-7B38-4F85-8873-0FAA1B9BFE1A"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "gitprofile/Data/UserNetworkDataManager.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "57"
+            endingLineNumber = "57"
+            landmarkName = "findUserRepos(username:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "EEFA0083-7B38-4F85-8873-0FAA1B9BFE1A - a75b075d59fdc950"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (Swift.CheckedContinuation&lt;Swift.Result&lt;Swift.Array&lt;gitprofile.RepositoriesResponse&gt;, Swift.Error&gt;, Swift.Never&gt;) -&gt; () in gitprofile.UserNetworkDataManager.findUserRepos(username: Swift.String) async -&gt; Swift.Result&lt;Swift.Array&lt;gitprofile.RepositoriesResponse&gt;, Swift.Error&gt;"
+                  moduleName = "gitprofile"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/aljanp/Documents/GitHub/git-profile-ios/gitprofile/gitprofile/Data/UserNetworkDataManager.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "57"
+                  endingLineNumber = "57"
+                  offsetFromSymbolStart = "288">
+               </Location>
+               <Location
+                  uuid = "EEFA0083-7B38-4F85-8873-0FAA1B9BFE1A - a75b075d59fdca96"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (Swift.CheckedContinuation&lt;Swift.Result&lt;Swift.Array&lt;gitprofile.RepositoriesResponse&gt;, Swift.Error&gt;, Swift.Never&gt;) -&gt; () in gitprofile.UserNetworkDataManager.findUserRepos(username: Swift.String) async -&gt; Swift.Result&lt;Swift.Array&lt;gitprofile.RepositoriesResponse&gt;, Swift.Error&gt;"
+                  moduleName = "gitprofile"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/aljanp/Documents/GitHub/git-profile-ios/gitprofile/gitprofile/Data/UserNetworkDataManager.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "55"
+                  endingLineNumber = "55"
+                  offsetFromSymbolStart = "196">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
    </Breakpoints>
 </Bucket>

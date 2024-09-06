@@ -23,9 +23,19 @@ struct NetworkComponent {
     private let memoryCapacity = 10 * 1024 * 1024 // 10MB
     private let diskCapacity = 100 * 1024 * 1024 // 100MB
 
+    let session: URLSession
+    
     init() {
         let urlCache = URLCache(memoryCapacity: memoryCapacity, diskCapacity: diskCapacity, diskPath: "gitprofile")
-        URLCache.shared = urlCache
+        let urlSessionConfig = NetworkComponent.createDefaultURLSessionConfig(urlCache)
+        self.session = URLSession(configuration: urlSessionConfig)
+    }
+
+    static func createDefaultURLSessionConfig(_ urlCache: URLCache) -> URLSessionConfiguration {
+        var urlConfig = URLSessionConfiguration.default
+        urlConfig.urlCache = urlCache
+        urlConfig.requestCachePolicy = .useProtocolCachePolicy
+        return urlConfig
     }
     
     func getQueryParameterValue(urlString: String, param: String) -> String? {

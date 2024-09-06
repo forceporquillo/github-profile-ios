@@ -10,16 +10,24 @@ import Foundation
 @MainActor
 class UsersViewModel : ObservableObject {
     
-    @Published
-    var users: [UserResponse] = []
+    @Published var viewState = UsersViewState<[UserUiModel]>.initial
+    @Published var showFooter = false
 
-    func fetchUsers() async throws {
-        let url = URL(string: "https://api.github.com/users")!
-        let (data, _) = try await URLSession.shared.data(from: url)
-        let decoder = JSONDecoder()
-        decoder.keyDecodingStrategy = .useDefaultKeys
+    private let domainManager = ServiceLocator.domainManager
 
-        let userData = try decoder.decode([UserResponse].self, from: data)
-        users.append(contentsOf: userData)
+    func fetchUsers() async {
+        let newState = await domainManager.getUsers()
+        DispatchQueue.main.async {
+            self.viewState = newState
+        }
+    }
+
+    func onLoadMore() {
+        print("onLoadMore...")
+        self.showFooter = true
+        Task {
+            await fetchUsers()
+            self.showFooter = false
+        }
     }
 }

@@ -10,10 +10,10 @@ import Foundation
 class ServiceLocator {
     
     static let dataManager: UserDataManager = {
-        UserNetworkDataManager(UserDataComponentFactory.create())
+        UserNetworkDataManager(UserDataComponentFactory())
     }()
     
     static let domainManager: UserDomainManager = {
-       return UserUseCaseManager(UserDomainComponentFactory.create())
+       return UserUseCaseManager(UserDomainComponentFactory())
     }()
 }

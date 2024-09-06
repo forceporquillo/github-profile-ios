@@ -7,29 +7,28 @@
 
 import SwiftUI
 
-
-
 struct RepositoryItemView: View {
 
-    var repository: RepositoriesResponse
+    var repository: UserReposUiModel
 
     var body: some View {
         VStack(
             alignment: .leading
         ) {
-            Text(repository.name ?? "").bold()
+            Text(repository.name.trimmingCharacters(in: .whitespacesAndNewlines))
+                .bold()
                 .padding(.bottom, 6)
-            Text(repository.description ?? "")
+            Text(repository.description)
                 .font(.subheadline)
             HStack {
                 Image(systemName: "star.fill")
                     .foregroundColor(.yellow)
                     .frame(alignment: .center)
-                Text("\(repository.stargazersCount ?? 0)")
+                Text("\(repository.starredCount)")
                     .padding(.trailing, 6)
                 if let language = repository.language {
                     Circle()
-                        .foregroundColor(.cyan)
+                        .foregroundColor(language.colorForLanguage())
                         .frame(width: 12, height: 12)
                     Text(language)
                 }
@@ -41,6 +40,6 @@ struct RepositoryItemView: View {
 
 #Preview {
     ScrollView {
-        RepositoryListView(repositories: [], onLoadMore: { next in })
+//        RepositoryListView(repositories: [], requestMore: {})
     }
 }

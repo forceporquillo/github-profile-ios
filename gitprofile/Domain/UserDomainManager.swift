@@ -8,7 +8,9 @@
 import Foundation
 
 protocol UserDomainManager {
-    func usersNetworkCall() async -> UsersViewState<[UserUiModel]>
-    func userReposNetworkCall(username: String) async -> [UserReposUiModel]
-    func userDetailsNetworkCall(username: String) async -> UsersViewState<UserDetailsResponse>
+    func getUsers() async -> UsersViewState<[UserUiModel]>
+    func getUserRepos(username: String) async -> LoadableViewState<[UserReposUiModel]>
+    func getUserDetails(username: String) async -> UsersViewState<UserDetailsResponse>
+    func getStarredRepos(username: String) async -> LoadableViewState<[UserStarredReposUiModel]>
+    func getUserOrgs(username: String) async -> LoadableViewState<[UserOrgsUiModel]>
 }
