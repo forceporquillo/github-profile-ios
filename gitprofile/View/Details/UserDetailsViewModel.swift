@@ -43,7 +43,7 @@ class UserDetailsViewModel : ObservableObject {
     func onLoadMore() {
         print("Request more")
         if case let LoadableViewState.success(data) = self.repositories {
-            self.repositories = LoadableViewState.loaded(oldRepos: data)
+            self.repositories = LoadableViewState.loaded(oldData: data)
         }
 
         task = Task {

@@ -18,7 +18,7 @@ class GetUserOrgsUseCase {
     func execute(username: String) async -> LoadableViewState<[UserOrgsUiModel]> {
         return await dataManager.findUserOrgs(username: username)
             .fold(onSuccess: { orgs in
-                return .success(repos: orgs.map { org in
+                return .success(data: orgs.map { org in
                     UserOrgsUiModel(
                         id: org.id!,
                         name: org.login ?? "",

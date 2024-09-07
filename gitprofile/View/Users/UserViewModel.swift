@@ -10,24 +10,22 @@ import Foundation
 @MainActor
 class UsersViewModel : ObservableObject {
     
-    @Published var viewState = UsersViewState<[UserUiModel]>.initial
-    @Published var showFooter = false
+    @Published var viewState = LoadableViewState<[UserUiModel]>.initial
 
     private let domainManager = ServiceLocator.domainManager
 
-    func fetchUsers() async {
+    func fetchUsers(_ resetState: Bool = false) async {
+        if resetState {
+            self.viewState = LoadableViewState.initial
+        }
         let newState = await domainManager.getUsers()
-        DispatchQueue.main.async {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
             self.viewState = newState
         }
     }
 
-    func onLoadMore() {
-        print("onLoadMore...")
-        self.showFooter = true
-        Task {
-            await fetchUsers()
-            self.showFooter = false
-        }
+    func searchUser(query: String) async {
+        self.viewState = LoadableViewState.initial
+        self.viewState = await domainManager.searchUser(query: query)
     }
 }

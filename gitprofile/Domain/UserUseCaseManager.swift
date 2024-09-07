@@ -15,7 +15,7 @@ class UserUseCaseManager : UserDomainManager {
         self.component = factory.create()
     }
 
-    func getUsers() async -> UsersViewState<[UserUiModel]> {
+    func getUsers() async -> LoadableViewState<[UserUiModel]> {
         return await component.providesGetUsersUseCase()
             .execute()
     }
@@ -38,5 +38,10 @@ class UserUseCaseManager : UserDomainManager {
     func getUserOrgs(username: String) async -> LoadableViewState<[UserOrgsUiModel]> {
         return await component.providesGetUserOrgsUseCase()
             .execute(username: username)
+    }
+    
+    func searchUser(query: String) async -> LoadableViewState<[UserUiModel]> {
+        return await component.providesSearchUserUseCase()
+            .execute(username: query)
     }
 }

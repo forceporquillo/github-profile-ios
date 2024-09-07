@@ -15,10 +15,10 @@ class GetUsersUseCase {
         self.dataManager = dataManager
     }
     
-    func execute() async -> UsersViewState<[UserUiModel]> {
+    func execute() async -> LoadableViewState<[UserUiModel]> {
         return await dataManager.loadUsers()
             .fold(onSuccess: { users in
-                .success(repos: users.map { user in
+                .success(data: users.map { user in
                     UserUiModel(
                         id: user.id!,
                         login: user.login!,
@@ -39,8 +39,8 @@ enum UsersViewState<T> {
 
 enum LoadableViewState<T> {
     case initial
-    case loaded(oldRepos: T)
-    case success(repos: T)
+    case loaded(oldData: T)
+    case success(data: T)
     case failure(message: String)
 }
 
@@ -49,3 +49,20 @@ struct UserUiModel {
     var login: String
     var avatarUrl: String?
 }
+//
+//extension LoadableViewState: Equatable where T: Equatable {
+//    static func == (lhs: LoadableViewState<T>, rhs: LoadableViewState<T>) -> Bool {
+//            switch (lhs, rhs) {
+//            case (.initial, .initial):
+//                return true
+//            case (.loaded(let lhsOldRepos), .loaded(let rhsOldRepos)):
+//                return lhsOldRepos == rhsOldRepos
+//            case (.success(let lhsRepos), .success(let rhsRepos)):
+//                return lhsRepos == rhsRepos
+//            case (.failure(let lhsMessage), .failure(let rhsMessage)):
+//                return lhsMessage == rhsMessage
+//            default:
+//                return false
+//            }
+//        }
+//}

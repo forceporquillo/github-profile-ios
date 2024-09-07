@@ -18,7 +18,7 @@ class GetUserReposUseCase {
     func execute(username: String) async -> LoadableViewState<[UserReposUiModel]> {
         return await dataManager.findUserRepos(username: username)
             .fold(onSuccess: { repos in
-                return .success(repos: repos.map { repo in
+                return .success(data: repos.map { repo in
                     UserReposUiModel(
                         id: repo.id!,
                         name: repo.name ?? "",

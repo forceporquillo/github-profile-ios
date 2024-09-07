@@ -32,7 +32,7 @@ struct RepositoryListView : View {
     @ViewBuilder
     private func displayRepositories(_ repos: [UserReposUiModel], _ showLoading: Bool) -> some View {
         if showLoading {
-            self.showLoadingView
+            showLoadingView
         }
         ForEach(repos, id: \.id) { repository in
             RepositoryItemView(repository: repository)

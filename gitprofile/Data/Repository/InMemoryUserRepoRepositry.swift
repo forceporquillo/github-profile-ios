@@ -7,12 +7,12 @@
 
 import Foundation
 
-class StarredReposRepositoryImpl : StarredReposRepository {
+class InMemoryUserRepoRepositry : UserReposRepository {
 
     private var userRepos: [String: Set<RepositoriesResponse>] = [:]
     private var nextPage: [String: Int] = [:]
 
-    func saveStarredRepos(username: String, repos: [RepositoriesResponse]?) {
+    func saveUserRepos(username: String, repos: [RepositoriesResponse]?) {
         guard let repos = repos else {
             return
         }
@@ -24,10 +24,10 @@ class StarredReposRepositoryImpl : StarredReposRepository {
         }
     }
     
-    func getStarredRepos(username: String) -> [RepositoriesResponse] {
+    func getUserRepos(username: String) -> [RepositoriesResponse] {
         return self.userRepos[username]?.sorted {
-            guard let updatedAtA = $0.stargazersCount else { return false }
-            guard let updateAtB = $1.stargazersCount else { return false }
+            guard let updatedAtA = $0.updatedAt else { return false }
+            guard let updateAtB = $1.updatedAt else { return false }
             return updatedAtA > updateAtB
         } ?? []
     }
@@ -50,10 +50,10 @@ class StarredReposRepositoryImpl : StarredReposRepository {
     }
 }
 
-protocol StarredReposRepository {
+protocol UserReposRepository {
     
-    func saveStarredRepos(username: String, repos: [RepositoriesResponse]?)
-    func getStarredRepos(username: String) -> [RepositoriesResponse]
+    func saveUserRepos(username: String, repos: [RepositoriesResponse]?)
+    func getUserRepos(username: String) -> [RepositoriesResponse]
     
     func saveNextPage(username: String, page: String?)
     func getNextPage(username: String) -> Int

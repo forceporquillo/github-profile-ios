@@ -18,7 +18,7 @@ class GetStarredReposUseCase {
     func execute(username: String) async -> LoadableViewState<[UserStarredReposUiModel]> {
         return await dataManager.findUserStarredRepos(username: username)
             .fold(onSuccess: { starred in
-                return .success(repos: starred.map { repo in
+                return .success(data: starred.map { repo in
                     UserStarredReposUiModel(
                         id: repo.id!,
                         name: repo.name ?? "",

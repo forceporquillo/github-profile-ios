@@ -28,7 +28,7 @@ class GetUserOrgsNetworkCall {
         completion: @escaping CompletionHandler<Paginated<[UserOrgsResponse]>>
     ) {
         urlComponents.path = "/users/\(username)/orgs"
-        var urlRequest = networkManager.createUrlRequest(url: self.urlComponents.url!, method: "GET")
+        let urlRequest = networkManager.createUrlRequest(url: self.urlComponents.url!, method: "GET")
         
         URLSession.shared.dataTask(with: urlRequest) { data, response, error in
             if let error = error {

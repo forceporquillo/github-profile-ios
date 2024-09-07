@@ -55,21 +55,22 @@ class UserNetworkDataManager : UserDataManager {
         
         return await withCheckedContinuation { continuation in
             if nextPage == endOfPaginationReached {
-                let cacheRepos = starredRepo.getStarredRepos(username: username)
+                let cacheRepos = starredRepo.getUserRepos(username: username)
                 // TODO: RepositoryEntity(repos: cacheRepos, endOfPaginaiton: true)
                 //continuation.resume(returning: .success(RepositoryEntity(repos: starredRepo.getStarredRepos(username: username))))
             }
             let queryParams = [
                 URLQueryItem(name: "page", value: "\(nextPage)"),
-                URLQueryItem(name: "per_page", value: pageSize)
+                URLQueryItem(name: "per_page", value: pageSize),
+                URLQueryItem(name: "sort", value: "updated")
             ]
             component.providesGetRepositoriesNetworkCall().execute(username: username, params: queryParams, completion: {
                 (result: (Result<GetRepositoriesResponse, Error>)) in
                 let mappedResult: Result<[RepositoriesResponse], Error> = result.map { response in
                     let (repositories, next) = (response.data, response.next)
-                    starredRepo.saveStarredRepos(username: username, repos: repositories)
+                    starredRepo.saveUserRepos(username: username, repos: repositories)
                     starredRepo.saveNextPage(username: username, page: next)
-                    return starredRepo.getStarredRepos(username: username)
+                    return starredRepo.getUserRepos(username: username)
                 }
                 continuation.resume(returning: mappedResult)
             })
@@ -94,7 +95,7 @@ class UserNetworkDataManager : UserDataManager {
                 (result: (Result<GetStarredReposResponse, Error>)) in
                 let mappedResult: Result<[StarredRepoResponse], Error> = result.map { response in
                     let (starredRepos, next) = (response.starred, response.next)
-//                    starredRepo.saveStarredRepos(username: username, repos: repositories)
+//                    starredRepo.saveStarredRepos(username: username, repos: starredRepos)
 //                    starredRepo.saveNextPage(username: username, page: next)
                     return /*starredRepo.getStarredRepos(username: username)*/ starredRepos
                 }

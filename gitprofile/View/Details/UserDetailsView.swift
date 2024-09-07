@@ -85,9 +85,6 @@ struct UserDetailsView: View {
         } placeholder: {
             ProgressView()
                 .progressViewStyle(.circular)
-                .frame(maxWidth: .infinity, maxHeight: 180)
-                .background(Color.white)
-                .edgesIgnoringSafeArea(.all)
         }
     }
 
@@ -150,11 +147,6 @@ struct UserDetailsView: View {
             .background(Color.white)
             .edgesIgnoringSafeArea(.all)
     }
-}
-
-private extension UserDetailsView {
-        
-    
 }
 
 public extension View {
