@@ -29,28 +29,32 @@ class UserDetailsViewModel : ObservableObject {
         self.details = await domainManager.getUserDetails(username: username)
         
         if case .success(_) = details {
-            let repos = await domainManager.getUserRepos(username: username)
-            let orgs = await domainManager.getUserOrgs(username: username)
-            let starred = await domainManager.getStarredRepos(username: username)
-            
-            print("Fetching repos")
-            self.repositories = repos
-            self.organizations = orgs
-            self.starredRepos = starred
+          //  let repos = await domainManager.getUserRepos(username: username)
+          //  let orgs = await domainManager.getUserOrgs(username: username)
+         //   let starred = await domainManager.getStarredRepos(username: username)
+           // self.repositories = repos
+           // self.organizations = orgs
+           // self.starredRepos = starred
         }
     }
-
-    func onLoadMore() {
-        print("Request more")
-        if case let LoadableViewState.success(data) = self.repositories {
-            self.repositories = LoadableViewState.loaded(oldData: data)
-        }
-
+    
+    func loadSubDetails(page: DetailPage) {
+        task?.cancel()
         task = Task {
-            let repos = await domainManager.getUserRepos(username: self.username)
-            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                self.repositories = repos
+            switch page {
+            case .repositories:
+                self.repositories = await domainManager.getUserRepos(username: username)
+            case .organizations:
+                self.organizations = await domainManager.getUserOrgs(username: username)
+            case .starred:
+                self.starredRepos = await domainManager.getStarredRepos(username: username)
             }
         }
     }
+}
+
+enum DetailPage {
+    case repositories
+    case organizations
+    case starred
 }

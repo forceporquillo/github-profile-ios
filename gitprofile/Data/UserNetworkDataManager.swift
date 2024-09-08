@@ -10,23 +10,25 @@ import Foundation
 protocol UserDataManager {
     
     func loadUsers() async -> Result<[UserResponse], Error>
-    func findUserRepos(username: String) async -> Result<[RepositoriesResponse], Error>
     func findUserDetails(username: String) async -> Result<UserDetailsResponse, Error>
-    func findUserStarredRepos(username: String) async -> Result<[StarredRepoResponse], Error>
-    func findUserOrgs(username: String) async -> Result<[UserOrgsResponse], Error>
+    func findUserRepos(username: String) async -> Result<DataSourceEntity<[RepositoriesResponse]>, Error>
+    func findUserStarredRepos(username: String) async -> Result<DataSourceEntity<[StarredRepoResponse]>, Error>
+    func findUserOrgs(username: String) async -> Result<DataSourceEntity<[UserOrgsResponse]>, Error>
 }
 
 class UserNetworkDataManager : UserDataManager {
-
+    
+    private let logger = LoggerFactory.create(clazz: UserNetworkDataManager.self)
+    
     private let endOfPaginationReached = -1
     private let pageSize = "20"
     
     private let component: UserDataComponent
-
+    
     init(_ factory: UserDataComponentFactory) {
         self.component = factory.create()
     }
-
+    
     func loadUsers() async -> Result<[UserResponse], Error> {
         let userRepo = component.providesUsersRepository()
         let queryParams = [
@@ -49,87 +51,6 @@ class UserNetworkDataManager : UserDataManager {
         }
     }
     
-    func findUserRepos(username: String) async -> Result<[RepositoriesResponse], Error> {
-        let starredRepo = component.providesStarredReposRepository()
-        let nextPage = starredRepo.getNextPage(username: username)
-        
-        return await withCheckedContinuation { continuation in
-            if nextPage == endOfPaginationReached {
-                let cacheRepos = starredRepo.getUserRepos(username: username)
-                // TODO: RepositoryEntity(repos: cacheRepos, endOfPaginaiton: true)
-                //continuation.resume(returning: .success(RepositoryEntity(repos: starredRepo.getStarredRepos(username: username))))
-            }
-            let queryParams = [
-                URLQueryItem(name: "page", value: "\(nextPage)"),
-                URLQueryItem(name: "per_page", value: pageSize),
-                URLQueryItem(name: "sort", value: "updated")
-            ]
-            component.providesGetRepositoriesNetworkCall().execute(username: username, params: queryParams, completion: {
-                (result: (Result<GetRepositoriesResponse, Error>)) in
-                let mappedResult: Result<[RepositoriesResponse], Error> = result.map { response in
-                    let (repositories, next) = (response.data, response.next)
-                    starredRepo.saveUserRepos(username: username, repos: repositories)
-                    starredRepo.saveNextPage(username: username, page: next)
-                    return starredRepo.getUserRepos(username: username)
-                }
-                continuation.resume(returning: mappedResult)
-            })
-        }
-    }
-    
-    func findUserStarredRepos(username: String) async -> Result<[StarredRepoResponse], Error> {
-//        let starredRepo = component.providesStarredReposRepository()
-//        let nextPage = starredRepo.getNextPage(username: username)
-        
-        return await withCheckedContinuation { continuation in
-//            if nextPage == endOfPaginationReached {
-//                let cacheRepos = starredRepo.getStarredRepos(username: username)
-//                // TODO: RepositoryEntity(repos: cacheRepos, endOfPaginaiton: true)
-//                //continuation.resume(returning: .success(RepositoryEntity(repos: starredRepo.getStarredRepos(username: username))))
-//            }
-            let queryParams = [
-                URLQueryItem(name: "page", value: "\(1)"),
-                URLQueryItem(name: "per_page", value: pageSize)
-            ]
-            component.providesGetStarredReposNetworkCall().execute(username: username, params: queryParams, completion: {
-                (result: (Result<GetStarredReposResponse, Error>)) in
-                let mappedResult: Result<[StarredRepoResponse], Error> = result.map { response in
-                    let (starredRepos, next) = (response.starred, response.next)
-//                    starredRepo.saveStarredRepos(username: username, repos: starredRepos)
-//                    starredRepo.saveNextPage(username: username, page: next)
-                    return /*starredRepo.getStarredRepos(username: username)*/ starredRepos
-                }
-                continuation.resume(returning: mappedResult)
-            })
-        }
-    }
-
-    func findUserOrgs(username: String) async -> Result<[UserOrgsResponse], Error> {
-        let starredRepo = component.providesStarredReposRepository()
-      //        let nextPage = starredRepo.getNextPage(username: username)
-              
-              return await withCheckedContinuation { continuation in
-      //            if nextPage == endOfPaginationReached {
-      //                let cacheRepos = starredRepo.getStarredRepos(username: username)
-      //                // TODO: RepositoryEntity(repos: cacheRepos, endOfPaginaiton: true)
-      //                //continuation.resume(returning: .success(RepositoryEntity(repos: starredRepo.getStarredRepos(username: username))))
-      //            }
-                  let queryParams = [
-                      URLQueryItem(name: "page", value: "\(1)"),
-                      URLQueryItem(name: "per_page", value: pageSize)
-                  ]
-                  component.providesGetUserOrgsNetworkCall().execute(username: username, completion: { result in
-                      let mappedResult: Result<[UserOrgsResponse], Error> = result.map { response in
-                          let (orgs, next) = (response.data, response.next)
-      //                    starredRepo.saveStarredRepos(username: username, repos: repositories)
-      //                    starredRepo.saveNextPage(username: username, page: next)
-                          return /*starredRepo.getStarredRepos(username: username)*/ orgs
-                      }
-                      continuation.resume(returning: mappedResult)
-                  })
-              }
-    }
-    
     func findUserDetails(username: String) async -> Result<UserDetailsResponse, Error> {
         let userDetailsRepo = component.providesUserDetailsRepository()
         return await withCheckedContinuation { continuation in
@@ -146,9 +67,69 @@ class UserNetworkDataManager : UserDataManager {
             }
         }
     }
+ 
+    func findUserStarredRepos(username: String) async -> Result<DataSourceEntity<[StarredRepoResponse]>, Error> {
+        return await executePagingInternal(type: StarredRepoResponse.self, username: username, networkCall: { [self] handler, nextPage in
+            let queryParams = [
+                URLQueryItem(name: "page", value: "\(nextPage)"),
+                URLQueryItem(name: "per_page", value: pageSize)
+            ]
+            logger.log(message: "ApiCall: GetStarredRepositories for user: \(username), params: \(queryParams)")
+            component.providesGetStarredReposNetworkCall().execute(username: username, params: queryParams, completion: handler)
+        })
+    }
+    
+    func findUserOrgs(username: String) async -> Result<DataSourceEntity<[UserOrgsResponse]>, Error> {
+        return await executePagingInternal(type: UserOrgsResponse.self, username: username, networkCall: { [self] handler, _ in
+            logger.log(message: "ApiCall: GetUserOrganizations for user: \(username)")
+            component.providesGetUserOrgsNetworkCall().execute(username: username, completion: handler)
+        })
+    }
+    
+    func findUserRepos(username: String) async -> Result<DataSourceEntity<[RepositoriesResponse]>, Error> {
+        return await executePagingInternal(type: RepositoriesResponse.self, username: username, networkCall: { [self] handler, nextPage in
+            let queryParams = [
+                URLQueryItem(name: "page", value: "\(nextPage)"),
+                URLQueryItem(name: "per_page", value: pageSize),
+                URLQueryItem(name: "sort", value: "updated")
+            ]
+            logger.log(message: "ApiCall: GetRepositories for user: \(username), params: \(queryParams)")
+            component.providesGetRepositoriesNetworkCall().execute(username: username, params: queryParams, completion: handler)
+        }, map: { repos in
+            repos.sorted(by: {
+                guard let updatedAtA = $0.updatedAt else { return false }
+                guard let updateAtB = $1.updatedAt else { return false }
+                return updatedAtA > updateAtB
+            })
+        })
+    }
+    
+    private func executePagingInternal<T: Hashable>(type: T.Type, username: String, networkCall: @escaping (@escaping CompletionHandler<PagingData<[T]>>, Int) -> Void, map: @escaping ([T]) -> [T] = { data in data }) async -> Result<DataSourceEntity<[T]>, Error> {
+        let repository = PagingRepositoryFactory.create(for: type)
+        return await withCheckedContinuation { continuation in
+            let isEndOfPaginationReached = repository.getIsEndOfPagination(username: username)
+            if isEndOfPaginationReached == true || repository.getNextPage(username: username) == endOfPaginationReached {
+                logger.log(message: "Loading paginated data from cache for user: \(username)")
+                let cacheRepos = map(repository.getData(username: username))
+                return continuation.resume(returning: .success(DataSourceEntity(data: cacheRepos, endOfPagination: true)))
+            }
+            logger.log(message: "Fetching new data from remote for user: \(username)")
+            let handler: CompletionHandler<PagingData<[T]>> = { [self] result in
+                let mappedResult = result.map { response in
+                    let (data, next, paginationEnded) = (response.data, response.next, response.endOfPaginationReached)
+                    logger.log(message: "\(type): End of pagination reached for user \(username) result: \(paginationEnded)")
+                    repository.saveData(username, data, next, paginationEnded)
+                    return DataSourceEntity(data: map(repository.getData(username: username)))
+                }
+                continuation.resume(returning: mappedResult)
+            }
+            let nextPage = repository.getNextPage(username: username)
+            networkCall(handler, nextPage)
+        }
+    }
 }
 
-struct RepositoryEntity {
-    var repos: [RepositoriesResponse]
-    var endOfPaginaiton: Bool = false
+struct DataSourceEntity<T> {
+    var data: T
+    var endOfPagination: Bool = false
 }

@@ -32,15 +32,14 @@ public struct SlidingTabView : View {
     /// Internal state to keep track of the selection index
     @State private var selectionState: Int = 0 {
         didSet {
-            selection = selectionState
+            onSelect(selectionState)
         }
     }
     
     // MARK: Required Properties
     
-    /// Binding the selection index which will  re-render the consuming view
-    @Binding var selection: Int
-    
+    let onSelect: (Int) -> Void
+
     /// The title of the tabs
     let tabs: [String]
     
@@ -78,7 +77,7 @@ public struct SlidingTabView : View {
     
     // MARK: init
     
-    public init(selection: Binding<Int>,
+    public init(onSelect: @escaping (Int) -> Void,
                 tabs: [String] = ["Repositoties", "Organizations", "Starred"],
                 font: Font = .body,
                 animation: Animation = .spring(),
@@ -90,7 +89,7 @@ public struct SlidingTabView : View {
                 selectionBarHeight: CGFloat = 3,
                 selectionBarBackgroundColor: Color = Color.gray.opacity(0.2),
                 selectionBarBackgroundHeight: CGFloat = 1) {
-        self._selection = selection
+        self.onSelect = onSelect
         self.tabs = tabs
         self.font = font
         self.animation = animation
@@ -172,7 +171,7 @@ struct SlidingTabConsumerView : View {
     
     var body: some View {
         VStack(alignment: .leading) {
-            SlidingTabView(selection: self.$selectedTabIndex,
+            SlidingTabView(onSelect: { _ in },
                            tabs: ["Repositores", "Organizations", "Starred"],
                            font: .body,
                            activeAccentColor: Color.black,

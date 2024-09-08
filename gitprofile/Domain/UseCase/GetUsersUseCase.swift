@@ -42,6 +42,7 @@ enum LoadableViewState<T> {
     case loaded(oldData: T)
     case success(data: T)
     case failure(message: String)
+    case endOfPaginatedReached(lastData: T)
 }
 
 struct UserUiModel {
@@ -49,20 +50,3 @@ struct UserUiModel {
     var login: String
     var avatarUrl: String?
 }
-//
-//extension LoadableViewState: Equatable where T: Equatable {
-//    static func == (lhs: LoadableViewState<T>, rhs: LoadableViewState<T>) -> Bool {
-//            switch (lhs, rhs) {
-//            case (.initial, .initial):
-//                return true
-//            case (.loaded(let lhsOldRepos), .loaded(let rhsOldRepos)):
-//                return lhsOldRepos == rhsOldRepos
-//            case (.success(let lhsRepos), .success(let rhsRepos)):
-//                return lhsRepos == rhsRepos
-//            case (.failure(let lhsMessage), .failure(let rhsMessage)):
-//                return lhsMessage == rhsMessage
-//            default:
-//                return false
-//            }
-//        }
-//}

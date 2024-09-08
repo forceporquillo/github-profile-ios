@@ -28,7 +28,7 @@ struct UserListView: View {
                     UserDetailsView(user: selectedUser)
                 }
         }
-        .searchable(text: $searchQuery, prompt: "Search profile (e.g. strongforce1)")
+        .searchable(text: $searchQuery, prompt: "Search profile (e.g. \(String(describing: Bundle.main.infoDictionary?["USERNAME"] ?? "")))")
         .onSubmit(of: .search) {
             Task {
                 await userViewModel.searchUser(query: searchQuery)
@@ -65,6 +65,8 @@ struct UserListView: View {
             }.padding(.horizontal, 16)
         case .loaded(let oldUsers):
             listView(repos: oldUsers, false)
+        case .endOfPaginatedReached(_):
+            EmptyView()
         }
     }
  
@@ -75,19 +77,13 @@ struct UserListView: View {
                 UserCardView(user: user) {
                     self.selectedUser = user.login
                     self.shouldShowDestination = true
-                }.onAppear {
-                    if user.id == repos.last?.id {
-                        
-                    }
                 }.listRowSeparator(.hidden)
             }
             if showLoading {
                 HStack {
                     ProgressView().onAppear {
                         Task {
-                            print("onLoadMore...")
                             if searchQuery.isEmpty {
-                                print("fetching USERS....")
                                 await userViewModel.fetchUsers()
                             }
                         }

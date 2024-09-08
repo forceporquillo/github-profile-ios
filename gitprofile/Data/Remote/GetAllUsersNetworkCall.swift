@@ -9,6 +9,7 @@ import Foundation
 
 class GetAllUsersNetworkCall {
     
+    private let logger = LoggerFactory.create(clazz: GetAllUsersNetworkCall.self)
     private let networkManager: NetworkComponent
     
     private var urlComponents: URLComponents = {
@@ -30,14 +31,14 @@ class GetAllUsersNetworkCall {
     ) {
         urlComponents.queryItems = params
 
-        var urlRequest = networkManager.createUrlRequest(url: self.urlComponents.url!, method: "GET")
-        
-        switch strategy {
-        case .cacheOverRemote:
-            urlRequest.cachePolicy = .returnCacheDataElseLoad
-        case .invalidateRemotely:
-            urlRequest.cachePolicy = .reloadIgnoringLocalCacheData
-        }
+        let urlRequest = NetworkComponent.createUrlRequest(url: self.urlComponents.url!, method: "GET")
+        logger.log(message: String(describing: urlRequest))
+//        switch strategy {
+//        case .cacheOverRemote:
+//            urlRequest.cachePolicy = .returnCacheDataElseLoad
+//        case .invalidateRemotely:
+//            urlRequest.cachePolicy = .reloadIgnoringLocalCacheData
+//        }
  
         URLSession.shared.dataTask(with: urlRequest) { data, response, error in
             if let error = error {

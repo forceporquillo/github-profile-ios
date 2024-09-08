@@ -12,7 +12,7 @@ protocol UserDataComponent {
     func providesUsersRepository() -> UsersRepository
     
     func providesGetRepositoriesNetworkCall() -> GetUserReposNetworkCall
-    func providesStarredReposRepository() -> UserReposRepository
+//    func providesStarredReposRepository() -> UserReposRepository
     
     func providesGetUserDetailsNetworkCall() -> GetUserDetailsNetworkCall
     func providesUserDetailsRepository() -> UserDetailsRepository
@@ -35,7 +35,7 @@ private class UserComponentImpl : UserDataComponent {
 
     // MARK: - Repositories
     private static let userRepository = UsersRepositoryImpl()
-    private static let starredRepository = InMemoryUserRepoRepositry()
+//    private static let starredRepository = InMemoryUserRepoRepository()
     private static let userDetailsRepository = UserDetailsRepositoryImpl()
     
     func providesGetUsersNetworkCall() -> GetAllUsersNetworkCall {
@@ -50,9 +50,9 @@ private class UserComponentImpl : UserDataComponent {
         return UserComponentImpl.userRepository
     }
     
-    func providesStarredReposRepository() -> UserReposRepository {
-        return UserComponentImpl.starredRepository
-    }
+//    func providesStarredReposRepository() -> UserReposRepository {
+//        return UserComponentImpl.starredRepository
+//    }
     
     func providesGetUserDetailsNetworkCall() -> GetUserDetailsNetworkCall {
         return UserComponentImpl.providesGetUserDetailsNetworkCall

@@ -18,14 +18,19 @@ class GetUserOrgsUseCase {
     func execute(username: String) async -> LoadableViewState<[UserOrgsUiModel]> {
         return await dataManager.findUserOrgs(username: username)
             .fold(onSuccess: { orgs in
-                return .success(data: orgs.map { org in
+                let (orgs, endOfPagination) = (orgs.data, orgs.endOfPagination)
+                let mappedResult = orgs.map { org in
                     UserOrgsUiModel(
                         id: org.id!,
                         name: org.login ?? "",
                         avatar: org.avatarUrl ?? "",
                         description: org.description ?? ""
                     )
-                })
+                }
+                if endOfPagination {
+                    return .endOfPaginatedReached(lastData: mappedResult)
+                }
+                return .success(data: mappedResult)
             }, onFailure: { error in
                 return .failure(message: error.localizedDescription)
             })

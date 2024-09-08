@@ -10,6 +10,7 @@ import SwiftUI
 struct UserOrganizationsListView: View {
     
     let organizations: LoadableViewState<[UserOrgsUiModel]>
+    let requestMore: () -> Void
     
     var body: some View {
         LazyVStack {
@@ -17,6 +18,8 @@ struct UserOrganizationsListView: View {
                 displayOrganizations(oldOrgs, true)
             } else if case let LoadableViewState.success(orgs) = organizations {
                 displayOrganizations(orgs, false)
+            } else if case let LoadableViewState.endOfPaginatedReached(lastData) = organizations {
+                displayOrganizations(lastData, false, true)
             }
         }
         .padding(.horizontal)
@@ -26,17 +29,25 @@ struct UserOrganizationsListView: View {
     }
     
     @ViewBuilder
-    private func displayOrganizations(_ orgs: [UserOrgsUiModel], _ showLoading: Bool) -> some View {
+    private func displayOrganizations(_ orgs: [UserOrgsUiModel], _ showLoading: Bool, _ endOfPaginationReached: Bool = false) -> some View {
+        if showLoading {
+            ProgressView().progressViewStyle(.circular)
+        }
         ForEach(orgs, id: \.id) { org in
             UserOrganizationsView(org: org)
                 .onAppear {
-//                    if repository.id == repos.last?.id {
-//                       // requestMore()
-//                    }
+                    if org.id == orgs.last?.id {
+                        requestMore()
+                    }
                 }
         }
-        if showLoading {
-            ProgressView().progressViewStyle(.circular)
+        
+        if !endOfPaginationReached {
+            ProgressView().progressViewStyle(.circular).onAppear {
+//                requestMore()
+                print("UserOrganizationsListView \(orgs.count)")
+                print("OnAppear...")
+            }
         }
     }
 }

@@ -9,6 +9,8 @@ import Foundation
 
 class GetUserDetailsNetworkCall {
     
+    private let logger = LoggerFactory.create(clazz: GetUserDetailsNetworkCall.self)
+    
     private let networkManager: NetworkComponent
     
     private var urlComponents: URLComponents = {
@@ -30,8 +32,8 @@ class GetUserDetailsNetworkCall {
     ) {
         urlComponents.path = "/users/\(username)"
 
-        var urlRequest = networkManager.createUrlRequest(url: self.urlComponents.url!, method: "GET")
-        
+        let urlRequest = NetworkComponent.createUrlRequest(url: self.urlComponents.url!, method: "GET")
+        logger.log(message: String(describing: urlRequest))
 //        switch strategy {
 //        case .cacheOverRemote:
 //            urlRequest.cachePolicy = .returnCacheDataElseLoad

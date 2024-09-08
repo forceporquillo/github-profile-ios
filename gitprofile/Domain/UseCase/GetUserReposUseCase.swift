@@ -18,7 +18,8 @@ class GetUserReposUseCase {
     func execute(username: String) async -> LoadableViewState<[UserReposUiModel]> {
         return await dataManager.findUserRepos(username: username)
             .fold(onSuccess: { repos in
-                return .success(data: repos.map { repo in
+                let (repos, endOfPagination) = (repos.data, repos.endOfPagination)
+                let mappedResult = repos.map { repo in
                     UserReposUiModel(
                         id: repo.id!,
                         name: repo.name ?? "",
@@ -26,7 +27,11 @@ class GetUserReposUseCase {
                         starredCount: repo.stargazersCount ?? 0,
                         language: repo.language
                     )
-                })
+                }
+                if endOfPagination {
+                    return .endOfPaginatedReached(lastData: mappedResult)
+                }
+                return .success(data: mappedResult)
             }, onFailure: { error in
                 return .failure(message: error.localizedDescription)
             })

@@ -14,8 +14,8 @@
             filePath = "gitprofile/View/Details/SlidingTabView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "79"
-            endingLineNumber = "79"
+            startingLineNumber = "78"
+            endingLineNumber = "78"
             landmarkName = "SlidingTabView"
             landmarkType = "14">
          </BreakpointContent>
@@ -157,8 +157,8 @@
             filePath = "gitprofile/Data/Remote/GetUserDetailsNetworkCall.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "46"
-            endingLineNumber = "46"
+            startingLineNumber = "48"
+            endingLineNumber = "48"
             landmarkName = "execute(username:strategy:completion:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -255,54 +255,6 @@
                   startingLineNumber = "39"
                   endingLineNumber = "39"
                   offsetFromSymbolStart = "156">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "EEFA0083-7B38-4F85-8873-0FAA1B9BFE1A"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "gitprofile/Data/UserNetworkDataManager.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "57"
-            endingLineNumber = "57"
-            landmarkName = "findUserRepos(username:)"
-            landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "EEFA0083-7B38-4F85-8873-0FAA1B9BFE1A - a75b075d59fdc950"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #1 (Swift.CheckedContinuation&lt;Swift.Result&lt;Swift.Array&lt;gitprofile.RepositoriesResponse&gt;, Swift.Error&gt;, Swift.Never&gt;) -&gt; () in gitprofile.UserNetworkDataManager.findUserRepos(username: Swift.String) async -&gt; Swift.Result&lt;Swift.Array&lt;gitprofile.RepositoriesResponse&gt;, Swift.Error&gt;"
-                  moduleName = "gitprofile"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/aljanp/Documents/GitHub/git-profile-ios/gitprofile/gitprofile/Data/UserNetworkDataManager.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "57"
-                  endingLineNumber = "57"
-                  offsetFromSymbolStart = "288">
-               </Location>
-               <Location
-                  uuid = "EEFA0083-7B38-4F85-8873-0FAA1B9BFE1A - a75b075d59fdca96"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #1 (Swift.CheckedContinuation&lt;Swift.Result&lt;Swift.Array&lt;gitprofile.RepositoriesResponse&gt;, Swift.Error&gt;, Swift.Never&gt;) -&gt; () in gitprofile.UserNetworkDataManager.findUserRepos(username: Swift.String) async -&gt; Swift.Result&lt;Swift.Array&lt;gitprofile.RepositoriesResponse&gt;, Swift.Error&gt;"
-                  moduleName = "gitprofile"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/aljanp/Documents/GitHub/git-profile-ios/gitprofile/gitprofile/Data/UserNetworkDataManager.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "55"
-                  endingLineNumber = "55"
-                  offsetFromSymbolStart = "196">
                </Location>
             </Locations>
          </BreakpointContent>

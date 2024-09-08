@@ -18,7 +18,8 @@ class GetStarredReposUseCase {
     func execute(username: String) async -> LoadableViewState<[UserStarredReposUiModel]> {
         return await dataManager.findUserStarredRepos(username: username)
             .fold(onSuccess: { starred in
-                return .success(data: starred.map { repo in
+                let (starred, endOfPagination) = (starred.data, starred.endOfPagination)
+                let mappedResult = starred.map { repo in
                     UserStarredReposUiModel(
                         id: repo.id!,
                         name: repo.name ?? "",
@@ -28,7 +29,11 @@ class GetStarredReposUseCase {
                         starredCount: repo.stargazersCount ?? 0,
                         language: repo.language
                     )
-                })
+                }
+                if endOfPagination {
+                    return .endOfPaginatedReached(lastData: mappedResult)
+                }
+                return .success(data: mappedResult)
             }, onFailure: { error in
                 return .failure(message: error.localizedDescription)
             })

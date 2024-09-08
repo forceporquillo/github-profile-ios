@@ -9,6 +9,8 @@ import Foundation
 
 class GetUserOrgsNetworkCall {
     
+    private let logger = LoggerFactory.create(clazz: GetUserOrgsNetworkCall.self)
+    
     private let networkManager: NetworkComponent
     
     private var urlComponents: URLComponents = {
@@ -25,12 +27,13 @@ class GetUserOrgsNetworkCall {
 
     func execute(
         username: String,
-        completion: @escaping CompletionHandler<Paginated<[UserOrgsResponse]>>
+        completion: @escaping CompletionHandler<PagingData<[UserOrgsResponse]>>
     ) {
         urlComponents.path = "/users/\(username)/orgs"
-        let urlRequest = networkManager.createUrlRequest(url: self.urlComponents.url!, method: "GET")
+        let urlRequest = NetworkComponent.createUrlRequest(url: self.urlComponents.url!, method: "GET")
+        logger.log(message: String(describing: urlRequest))
         
-        URLSession.shared.dataTask(with: urlRequest) { data, response, error in
+        URLSession.shared.dataTask(with: urlRequest) { [self] data, response, error in
             if let error = error {
                 completion(.failure(error))
                 return
@@ -39,23 +42,27 @@ class GetUserOrgsNetworkCall {
             let since = self.networkManager.getQueryParameterValue(urlString: nextLink ?? "", param: "page")
             let page = Int(since ?? "-1") ?? -1
             
+            logger.log(message: "next page link -> \(page)")
             guard let data = data else {
-                print("User has no organizations")
-                completion(.success(Paginated(data: [], next: page)))
+                logger.log(message: "Success -> content size: 0 endOfPaginationReached: true")
+                completion(.success(PagingData(data: [], next: page, endOfPaginationReached: true)))
                 return
             }
             do {
                 let decodedResponse: [UserOrgsResponse] = try self.networkManager.decoder.decode([UserOrgsResponse].self, from: data)
-                print("User has no organizaitons")
-                completion(.success(Paginated(data: decodedResponse, next: page)))
+                let isEndOfPaginationReached = decodedResponse.isEmpty || page == -1
+                logger.log(message: "Success -> content size: \(decodedResponse.count) endOfPaginationReached: \(isEndOfPaginationReached)")
+                completion(.success(PagingData(data: decodedResponse, next: page, endOfPaginationReached: isEndOfPaginationReached)))
             } catch {
+                logger.log(.error ,message: "Error occurred during decoding: \(error)")
                 completion(.failure(error))
             }
         }.resume()
     }
 }
 
-struct Paginated<T> {
+struct PagingData<T> {
     var data: T
     var next: Int
+    var endOfPaginationReached: Bool = false
 }

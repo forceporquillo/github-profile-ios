@@ -20,6 +20,8 @@ struct RepositoryListView : View {
                 displayRepositories(oldRepos, true)
             } else if case let LoadableViewState.success(repos) = repositories {
                 displayRepositories(repos, false)
+            } else if case let LoadableViewState.endOfPaginatedReached(lastData) = repositories {
+                displayRepositories(lastData, false, true)
             }
         }
         .padding(.horizontal)
@@ -30,7 +32,7 @@ struct RepositoryListView : View {
     }
 
     @ViewBuilder
-    private func displayRepositories(_ repos: [UserReposUiModel], _ showLoading: Bool) -> some View {
+    private func displayRepositories(_ repos: [UserReposUiModel], _ showLoading: Bool, _ endOfPaginationReached: Bool = false) -> some View {
         if showLoading {
             showLoadingView
         }
@@ -38,9 +40,18 @@ struct RepositoryListView : View {
             RepositoryItemView(repository: repository)
                 .onAppear {
                     if repository.id == repos.last?.id {
-                        requestMore()
+                        if !endOfPaginationReached {
+                           // requestMore()
+                        }
                     }
                 }
+        }
+        if !endOfPaginationReached {
+            showLoadingView.onAppear {
+                requestMore()
+                print("RepositoryListView \(repos.count)")
+                print("OnAppear...")
+            }
         }
     }
     

@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct UserOrgsResponse: Codable {
+struct UserOrgsResponse: Codable, Hashable {
 
   var login            : String? = nil
   var id               : Int?    = nil

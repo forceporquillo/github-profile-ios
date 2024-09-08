@@ -44,7 +44,7 @@ class SearchUserUseCase {
                         UserUiModel(
                             id: details.id ?? -1,
                             login: details.login ?? "",
-                            avatarUrl: details.avatarURL ?? ""
+                            avatarUrl: details.avatarUrl ?? ""
                         )
                     ])
             }, onFailure: { error in .failure(message: error.localizedDescription) })

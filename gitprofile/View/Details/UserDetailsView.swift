@@ -13,7 +13,8 @@ struct UserDetailsView: View {
     
     @State private var selectedTabIndex = 0
     @State private var isDisplayNameVisible = true
-    
+    @State private var page: DetailPage = DetailPage.repositories
+
     var user: String
 
     private func headerView(parentProxy: GeometryProxy, _ details: UserDetailsResponse) -> some View {
@@ -21,7 +22,7 @@ struct UserDetailsView: View {
             VStack(alignment: .leading) {
                 veiledCoverPhoto(details)
                 HStack {
-                    AsyncImage(url: URL(string: details.avatarURL ?? "")) { image in
+                    AsyncImage(url: URL(string: details.avatarUrl ?? "")) { image in
                         image
                             .resizable()
                             .aspectRatio(contentMode: .fill)
@@ -62,7 +63,7 @@ struct UserDetailsView: View {
             UserDetailsHandleView(
                 workTitle: details.company,
                 address: details.location,
-                url: (details.htmlURL ?? "").replacingOccurrences(of: "https://", with: ""),
+                url: (details.htmlUrl ?? "").replacingOccurrences(of: "https://", with: ""),
                 twitterHandle: details.twitterUsername,
                 email: details.email,
                 followers: details.followers ?? 0,
@@ -74,7 +75,7 @@ struct UserDetailsView: View {
 
     @ViewBuilder
     private func veiledCoverPhoto(_ details: UserDetailsResponse) -> some View {
-        AsyncImage(url: URL(string: details.avatarURL ?? "")) { image in
+        AsyncImage(url: URL(string: details.avatarUrl ?? "")) { image in
             image
                 .resizable()
                 .scaledToFill()
@@ -108,6 +109,7 @@ struct UserDetailsView: View {
         }
         .task {
             await viewModel.fetchDetails(username: user)
+            loadTabData(tab: selectedTabIndex)
         }
     }
 
@@ -116,7 +118,13 @@ struct UserDetailsView: View {
         case .initial:
             loadingView
         case .failure(let message):
-            Text("Error \(message)")
+            VStack {
+                Text("Ops! Sorry, we run into an error")
+                    .font(.title2)
+                Text(message)
+                    .multilineTextAlignment(.center)
+                    .font(.caption)
+            }.padding(.horizontal, 16)
         case .success(let details):
             mainDetailView(details)
         }
@@ -126,15 +134,25 @@ struct UserDetailsView: View {
         GeometryReader { geometry in
             ScrollView {
                 headerView(parentProxy: geometry, details)
-                SlidingTabView(selection: $selectedTabIndex)
+                SlidingTabView(onSelect: { tab in
+                    self.selectedTabIndex = tab
+                    self.loadTabData(tab: tab)
+                })
                 if selectedTabIndex == 0 {
                     RepositoryListView(repositories: viewModel.repositories) {
-                        viewModel.onLoadMore()
+                        self.page = DetailPage.repositories
+                        viewModel.loadSubDetails(page: page)
                     }
                 } else if selectedTabIndex == 1 {
-                    UserOrganizationsListView(organizations: viewModel.organizations)
+                    UserOrganizationsListView(organizations: viewModel.organizations) {
+                        self.page = DetailPage.organizations
+                        viewModel.loadSubDetails(page: page)
+                    }
                 } else {
-                    StarredRepositoriesListView(starredRepos: viewModel.starredRepos)
+                    StarredRepositoriesListView(starredRepos: viewModel.starredRepos) {
+                        self.page = DetailPage.starred
+                        viewModel.loadSubDetails(page: page)
+                    }
                 }
             }
         }
@@ -146,6 +164,18 @@ struct UserDetailsView: View {
             .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity)
             .background(Color.white)
             .edgesIgnoringSafeArea(.all)
+    }
+    
+    private func loadTabData(tab: Int) {
+        let page: DetailPage
+        if tab == 0 {
+            page = DetailPage.repositories
+        } else if tab == 1 {
+            page = DetailPage.organizations
+        } else {
+            page = DetailPage.starred
+        }
+        viewModel.loadSubDetails(page: page)
     }
 }
 

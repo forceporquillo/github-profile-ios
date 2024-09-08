@@ -9,6 +9,8 @@ import Foundation
 
 struct NetworkComponent {
     
+    private static let logger = LoggerFactory.create(for: "NetworkComponent")
+    
     static let shared = NetworkComponent()
     
     let decoder: JSONDecoder = {
@@ -31,8 +33,9 @@ struct NetworkComponent {
         self.session = URLSession(configuration: urlSessionConfig)
     }
 
-    static func createDefaultURLSessionConfig(_ urlCache: URLCache) -> URLSessionConfiguration {
-        var urlConfig = URLSessionConfiguration.default
+   static func createDefaultURLSessionConfig(_ urlCache: URLCache) -> URLSessionConfiguration {
+        logger.log(message: "Creating default URL Session configuration")
+        let urlConfig = URLSessionConfiguration.default
         urlConfig.urlCache = urlCache
         urlConfig.requestCachePolicy = .useProtocolCachePolicy
         return urlConfig
@@ -47,7 +50,7 @@ struct NetworkComponent {
         return queryItems.first(where: { $0.name == param })?.value
     }
     
-    func createUrlRequest(url: URL, method: String) -> URLRequest {
+    static func createUrlRequest(url: URL, method: String) -> URLRequest {
         var request = URLRequest(url: url)
         request.httpMethod = method
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
@@ -56,6 +59,13 @@ struct NetworkComponent {
         // We need to set credentials in order to bypass rate limit error
         request.setValue(ApiCredentials.basic, forHTTPHeaderField: "Authorization")
         request.setValue("developer: \(ApiCredentials.username) app-name: \(Bundle.main.bundleIdentifier ?? "")", forHTTPHeaderField: "User-Agent")
+        
+        logger.log(message: "URLRequest headers:")
+        if let headers = request.allHTTPHeaderFields {
+            for (key, value) in headers {
+                logger.log(message: "\(key): \(value)")
+            }
+        }
         
         return request
     }

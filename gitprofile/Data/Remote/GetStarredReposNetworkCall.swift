@@ -9,6 +9,8 @@ import Foundation
 
 class GetStarredReposNetworkCall {
     
+    private let logger = LoggerFactory.create(clazz: GetStarredReposNetworkCall.self)
+    
     private let networkManager: NetworkComponent
     
     private var urlComponents: URLComponents = {
@@ -26,21 +28,23 @@ class GetStarredReposNetworkCall {
         username: String,
         params: [URLQueryItem]? = [],
         strategy: FetchStrategy = FetchStrategy.cacheOverRemote,
-        completion: @escaping CompletionHandler<GetStarredReposResponse>
+        completion: @escaping CompletionHandler<PagingData<[StarredRepoResponse]>>
     ) {
         urlComponents.path = "/users/\(username)/starred"
         urlComponents.queryItems = params
         
-        var urlRequest = networkManager.createUrlRequest(url: self.urlComponents.url!, method: "GET")
+        let urlRequest = NetworkComponent.createUrlRequest(url: self.urlComponents.url!, method: "GET")
+//
+        logger.log(message: String(describing: urlRequest))
         
-        switch strategy {
-        case .cacheOverRemote:
-            urlRequest.cachePolicy = .returnCacheDataElseLoad
-        case .invalidateRemotely:
-            urlRequest.cachePolicy = .reloadIgnoringLocalCacheData
-        }
+//        switch strategy {
+//        case .cacheOverRemote:
+//            urlRequest.cachePolicy = .returnCacheDataElseLoad
+//        case .invalidateRemotely:
+//            urlRequest.cachePolicy = .reloadIgnoringLocalCacheData
+//        }
         
-        URLSession.shared.dataTask(with: urlRequest) { data, response, error in
+        URLSession.shared.dataTask(with: urlRequest) { [self] data, response, error in
             if let error = error {
                 completion(.failure(error))
                 return
@@ -48,22 +52,23 @@ class GetStarredReposNetworkCall {
             
             let next = self.networkManager.parseLinkHeader(response?.headerField(forKey: "Link") ?? "")["next"]
             let since = self.networkManager.getQueryParameterValue(urlString: next ?? "", param: "page")
+            let page = Int(since ?? "-1") ?? -1
             
+            logger.log(message: "next page link -> \(page)")
             guard let data = data else {
-                completion(.success(GetStarredReposResponse(starred: [], next: since)))
+                logger.log(message: "Success -> content size: 0 endOfPaginationReached: true")
+                completion(.success(PagingData(data: [], next : page, endOfPaginationReached: true)))
                 return
             }
             do {
                 let decodedResponse = try self.networkManager.decoder.decode([StarredRepoResponse].self, from: data)
-                completion(.success(GetStarredReposResponse(starred: decodedResponse, next: since)))
+                let isEndOfPaginationReached = decodedResponse.isEmpty || page == -1
+                logger.log(message: "Success -> content size: \(decodedResponse.count) endOfPaginationReached: \(isEndOfPaginationReached)")
+                completion(.success(PagingData(data: decodedResponse, next: page, endOfPaginationReached: isEndOfPaginationReached)))
             } catch {
+                logger.log(.error ,message: "Error occurred during decoding: \(error)")
                 completion(.failure(error))
             }
         }.resume()
     }
-}
-
-struct GetStarredReposResponse {
-    var starred: [StarredRepoResponse]
-    var next: String?
 }

@@ -9,6 +9,8 @@ import Foundation
 
 class GetUserReposNetworkCall {
  
+    private let logger = LoggerFactory.create(clazz: GetUserReposNetworkCall.self)
+    
     private let networkManager: NetworkComponent
     
     private var urlComponents: URLComponents = {
@@ -26,12 +28,15 @@ class GetUserReposNetworkCall {
         username: String,
         params: [URLQueryItem]? = [],
         strategy: FetchStrategy = FetchStrategy.cacheOverRemote,
-        completion: @escaping CompletionHandler<GetRepositoriesResponse>
+        completion: @escaping CompletionHandler<PagingData<[RepositoriesResponse]>>
     ) {
         urlComponents.path = "/users/\(username)/repos"
         urlComponents.queryItems = params
         
-        var urlRequest = networkManager.createUrlRequest(url: self.urlComponents.url!, method: "GET")
+        let urlRequest = NetworkComponent.createUrlRequest(url: self.urlComponents.url!, method: "GET")
+       
+        logger.log(message: "ApiCall to \(urlRequest) for user: \(username) with params: \(String(describing: params))")
+        
 //        urlRequest.cachePolicy = .useProtocolCachePolicy
 //        switch strategy {
 //        case .cacheOverRemote:
@@ -40,7 +45,7 @@ class GetUserReposNetworkCall {
 //            urlRequest.cachePolicy = .reloadIgnoringLocalCacheData
 //        }
 
-        URLSession.shared.dataTask(with: urlRequest) { data, response, error in
+        URLSession.shared.dataTask(with: urlRequest) { [self] data, response, error in
             if let error = error {
                 completion(.failure(error))
                 return
@@ -48,22 +53,28 @@ class GetUserReposNetworkCall {
             
             let next = self.networkManager.parseLinkHeader(response?.headerField(forKey: "Link") ?? "")["next"]
             let since = self.networkManager.getQueryParameterValue(urlString: next ?? "", param: "page")
-
+            let page = Int(since ?? "-1") ?? -1
+            
+            logger.log(message: "next page link -> \(page)")
             guard let data = data else {
-                completion(.success(GetRepositoriesResponse(data: nil, next: since)))
+                logger.log(message: "Success -> content size: 0 endOfPaginationReached: true")
+                completion(.success(PagingData(data: [], next: page, endOfPaginationReached: true)))
                 return
             }
             do {
                 let decodedResponse = try self.networkManager.decoder.decode([RepositoriesResponse].self, from: data)
-                completion(.success(GetRepositoriesResponse(data: decodedResponse, next: since)))
+                let isEndOfPaginationReached = decodedResponse.isEmpty || page == -1
+                logger.log(message: "Success -> content size: \(decodedResponse.count) endOfPaginationReached: \(isEndOfPaginationReached)")
+                completion(.success(PagingData(data: decodedResponse, next: page, endOfPaginationReached: isEndOfPaginationReached)))
             } catch {
+                logger.log(.error ,message: "Error occurred during decoding: \(error)")
                 completion(.failure(error))
             }
         }.resume()
     }
 }
 
-struct GetRepositoriesResponse {
-    var data: [RepositoriesResponse]?
-    var next: String?
-}
+//struct GetRepositoriesResponse {
+//    var data: [RepositoriesResponse]
+//    var next: String?
+//}

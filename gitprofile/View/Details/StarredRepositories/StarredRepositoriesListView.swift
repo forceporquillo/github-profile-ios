@@ -10,6 +10,7 @@ import SwiftUI
 struct StarredRepositoriesListView: View {
     
     let starredRepos: LoadableViewState<[UserStarredReposUiModel]>
+    let requestMore: () -> Void
     
     var body: some View {
         LazyVStack {
@@ -17,6 +18,8 @@ struct StarredRepositoriesListView: View {
                 displayStarredRepositories(oldRepos, true)
             } else if case let LoadableViewState.success(repos) = starredRepos {
                 displayStarredRepositories(repos, false)
+            } else if case let LoadableViewState.endOfPaginatedReached(lastData) = starredRepos {
+                displayStarredRepositories(lastData, false, true)
             }
         }
         .padding(.horizontal)
@@ -26,17 +29,24 @@ struct StarredRepositoriesListView: View {
     }
     
     @ViewBuilder
-    private func displayStarredRepositories(_ repos: [UserStarredReposUiModel], _ showLoading: Bool) -> some View {
+    private func displayStarredRepositories(_ repos: [UserStarredReposUiModel], _ showLoading: Bool, _ endOfPaginationReached: Bool = false) -> some View {
+        if showLoading {
+            ProgressView().progressViewStyle(.circular)
+        }
         ForEach(repos, id: \.id) { repository in
             StarredReposItemView(starredRepoUiModel: repository)
                 .onAppear {
                     if repository.id == repos.last?.id {
-                       // requestMore()
+//                       requestMore()
                     }
                 }
         }
-        if showLoading {
-            ProgressView().progressViewStyle(.circular)
+        if !endOfPaginationReached {
+            ProgressView().progressViewStyle(.circular).onAppear {
+                print("StarredRepositoriesListView \(repos.count)")
+                print("OnAppear...")
+                requestMore()
+            }
         }
     }
 }
