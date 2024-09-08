@@ -108,7 +108,7 @@ class UserNetworkDataManager : UserDataManager {
         type: T.Type, 
         username: String,
         networkCall: @escaping (@escaping PagingCompletionHandler<T>, Int) -> Void,
-        map: @escaping ([T]) -> [T] = { data in data }
+        map mappingFunc: @escaping ([T]) -> [T] = { data in data }
     ) async -> Result<PagingSourceEntity<[T]>, Error> {
         
         let repository = PagingRepositoryFactory.create(for: type)
@@ -117,7 +117,7 @@ class UserNetworkDataManager : UserDataManager {
             let isEndOfPaginationReached = repository.getIsEndOfPagination(username: username)
             if isEndOfPaginationReached == true || repository.getNextPage(username: username) == endOfPaginationReached {
                 logger.log(message: "Loading paginated data from cache for user: \(username)")
-                let cacheRepos = map(repository.getData(username: username))
+                let cacheRepos = mappingFunc(repository.getData(username: username))
                 return continuation.resume(returning: .success(PagingSourceEntity(data: cacheRepos, endOfPagination: true)))
             }
         
@@ -128,7 +128,7 @@ class UserNetworkDataManager : UserDataManager {
                     let (data, next, paginationEnded) = (response.data, response.next, response.endOfPaginationReached)
                     logger.log(message: "\(type): End of pagination reached for user \(username) result: \(paginationEnded)")
                     repository.saveData(username, data, next, paginationEnded)
-                    return PagingSourceEntity(data: map(repository.getData(username: username)))
+                    return PagingSourceEntity(data: mappingFunc(repository.getData(username: username)))
                 }
                 continuation.resume(returning: mappedResult)
             }
