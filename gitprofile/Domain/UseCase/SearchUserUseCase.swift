@@ -50,8 +50,3 @@ class SearchUserUseCase {
             }, onFailure: { error in .failure(message: error.localizedDescription) })
     }
 }
-
-enum ResponseError: Error {
-    case missingId
-    case missingLogin
-}

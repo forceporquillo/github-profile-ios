@@ -37,7 +37,7 @@ class GetUserOrgsUseCase {
     }
 }
 
-struct UserOrgsUiModel {
+struct UserOrgsUiModel: Equatable {
     var id: Int
     var name: String
     var avatar: String

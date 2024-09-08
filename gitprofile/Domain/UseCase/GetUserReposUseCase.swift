@@ -38,7 +38,7 @@ class GetUserReposUseCase {
     }
 }
 
-struct UserReposUiModel {
+struct UserReposUiModel: Equatable {
     var id: Int
     var name: String
     var description: String

@@ -7,10 +7,11 @@
 
 import Foundation
 
+
 @MainActor
 class UserDetailsViewModel : ObservableObject {
    
-    @Published private (set) var details: UsersViewState<UserDetailsResponse> = UsersViewState.initial
+    @Published private (set) var details: UsersViewState<UserDetailsUiModel> = UsersViewState.initial
     
     @Published private (set) var repositories: LoadableViewState<[UserReposUiModel]> = LoadableViewState.initial
     @Published private (set) var organizations: LoadableViewState<[UserOrgsUiModel]> = LoadableViewState.initial

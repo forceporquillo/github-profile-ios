@@ -31,21 +31,7 @@ class GetUsersUseCase {
     }
 }
 
-enum UsersViewState<T> {
-    case initial
-    case success(repos: T)
-    case failure(message: String)
-}
-
-enum LoadableViewState<T> {
-    case initial
-    case loaded(oldData: T)
-    case success(data: T)
-    case failure(message: String)
-    case endOfPaginatedReached(lastData: T)
-}
-
-struct UserUiModel {
+struct UserUiModel: Equatable {
     var id: Int
     var login: String
     var avatarUrl: String?

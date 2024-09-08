@@ -9,16 +9,21 @@ import SwiftUI
 
 struct UserOrganizationsListView: View {
     
-    let organizations: LoadableViewState<[UserOrgsUiModel]>
-    let requestMore: () -> Void
+    let stateStore: UserOrgsStore
+    let username: String
     
     var body: some View {
         LazyVStack {
-            if case let LoadableViewState.loaded(oldOrgs) = organizations {
+            switch stateStore.state.viewState {
+            case .initial:
+                ProgressView().progressViewStyle(.circular)
+            case .loaded(let oldOrgs):
                 displayOrganizations(oldOrgs, true)
-            } else if case let LoadableViewState.success(orgs) = organizations {
+            case .success(let orgs):
                 displayOrganizations(orgs, false)
-            } else if case let LoadableViewState.endOfPaginatedReached(lastData) = organizations {
+            case .failure(let message):
+                EmptyView()
+            case .endOfPaginatedReached(let lastData):
                 displayOrganizations(lastData, false, true)
             }
         }
@@ -37,7 +42,7 @@ struct UserOrganizationsListView: View {
             UserOrganizationsView(org: org)
                 .onAppear {
                     if org.id == orgs.last?.id {
-                        requestMore()
+                        stateStore.send(.loadPage(username: username))
                     }
                 }
         }
@@ -52,6 +57,17 @@ struct UserOrganizationsListView: View {
     }
 }
 
-//#Preview {
-////    UserOrganizationsListView(organizations: [LoadableViewState<[UserOrgsUiModel]>])
-//}
+struct UserOrgsListView_Previews: PreviewProvider {
+    static var previews: some View {
+        let store = GenericStore(
+            initialState: UserDetailsGenericState<UserOrgsUiModel>(viewState: .initial),
+            reduce: userOrgReducer
+        )
+        ScrollView {
+            UserOrganizationsListView(stateStore: store, username: "forceporquillo")
+        }
+        .task {
+            store.send(.loadPage(username: "forceporquillo"))
+        }
+    }
+}

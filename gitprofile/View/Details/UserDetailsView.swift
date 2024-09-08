@@ -8,21 +8,23 @@
 import SwiftUI
 
 struct UserDetailsView: View {
-    
-    @ObservedObject private var viewModel = UserDetailsViewModel()
-    
+   
+    @State private var detailsStore = UserDetailsStore(
+        initialState: .init(viewState: GenericViewState.initial),
+        reduce: detailsReducer
+    )
+
     @State private var selectedTabIndex = 0
     @State private var isDisplayNameVisible = true
-    @State private var page: DetailPage = DetailPage.repositories
 
-    var user: String
+    let user: String
 
-    private func headerView(parentProxy: GeometryProxy, _ details: UserDetailsResponse) -> some View {
+    private func headerView(parentProxy: GeometryProxy, _ details: UserDetailsUiModel) -> some View {
         VStack {
             VStack(alignment: .leading) {
                 veiledCoverPhoto(details)
                 HStack {
-                    AsyncImage(url: URL(string: details.avatarUrl ?? "")) { image in
+                    AsyncImage(url: URL(string: details.avatarUrl)) { image in
                         image
                             .resizable()
                             .aspectRatio(contentMode: .fill)
@@ -39,7 +41,7 @@ struct UserDetailsView: View {
                             .font(.title)
                             .lineLimit(1)
                             .fontWeight(.bold)
-                        Text(details.name ?? "")
+                        Text(details.name)
                             .font(.subheadline)
                             .padding(.bottom, 20)
                             .onVisibilityChange(proxy: parentProxy) { isVisible in
@@ -53,9 +55,9 @@ struct UserDetailsView: View {
                 .padding(.horizontal, 16)
             }
             
-            let topPadding: CGFloat = details.bio != nil ? 86 : 46
+            let topPadding: CGFloat = !details.bio.isEmpty ? 86 : 46
             
-            Text(details.bio?.trimmingCharacters(in: .whitespacesAndNewlines) ?? "")
+            Text(details.bio)
                 .lineLimit(4)
                 .padding(EdgeInsets(top: topPadding, leading: 16, bottom: 16, trailing: 16))
                 .frame(maxWidth: .infinity, alignment: .leading)
@@ -63,19 +65,19 @@ struct UserDetailsView: View {
             UserDetailsHandleView(
                 workTitle: details.company,
                 address: details.location,
-                url: (details.htmlUrl ?? "").replacingOccurrences(of: "https://", with: ""),
-                twitterHandle: details.twitterUsername,
+                url: details.htmlUrl,
+                twitterHandle: details.twitterHandle,
                 email: details.email,
-                followers: details.followers ?? 0,
-                following: (details.following ?? 0)
+                followers: details.followers,
+                following: details.following
             )
             
         }
     }
 
     @ViewBuilder
-    private func veiledCoverPhoto(_ details: UserDetailsResponse) -> some View {
-        AsyncImage(url: URL(string: details.avatarUrl ?? "")) { image in
+    private func veiledCoverPhoto(_ details: UserDetailsUiModel) -> some View {
+        AsyncImage(url: URL(string: details.avatarUrl)) { image in
             image
                 .resizable()
                 .scaledToFill()
@@ -97,24 +99,24 @@ struct UserDetailsView: View {
         .toolbarTitleDisplayMode(.inline)
         .navigationTitle(isDisplayNameVisible ? "" : user)
         .toolbar {
-            ToolbarItem(placement: .topBarTrailing) {
-                Button(action: {
-                    withAnimation {
-                        
-                    }
-                }) {
-                    Image(systemName: "square.and.arrow.up")
-                }
-            }
+            // TODO: Add share functionality
+//            ToolbarItem(placement: .topBarTrailing) {
+//                Button(action: {
+//                    withAnimation {
+//                        
+//                    }
+//                }) {
+//                    Image(systemName: "square.and.arrow.up")
+//                }
+//            }
         }
         .task {
-            await viewModel.fetchDetails(username: user)
-            loadTabData(tab: selectedTabIndex)
+            detailsStore.send(.fetch(username: user))
         }
     }
 
     @ViewBuilder private var content: some View {
-        switch viewModel.details {
+        switch detailsStore.state.viewState {
         case .initial:
             loadingView
         case .failure(let message):
@@ -130,30 +132,17 @@ struct UserDetailsView: View {
         }
     }
 
-    private func mainDetailView(_ details: UserDetailsResponse) -> some View {
+    private func mainDetailView(_ details: UserDetailsUiModel) -> some View {
         GeometryReader { geometry in
             ScrollView {
                 headerView(parentProxy: geometry, details)
-                SlidingTabView(onSelect: { tab in
-                    self.selectedTabIndex = tab
-                    self.loadTabData(tab: tab)
-                })
-                if selectedTabIndex == 0 {
-                    RepositoryListView(repositories: viewModel.repositories) {
-                        self.page = DetailPage.repositories
-                        viewModel.loadSubDetails(page: page)
-                    }
-                } else if selectedTabIndex == 1 {
-                    UserOrganizationsListView(organizations: viewModel.organizations) {
-                        self.page = DetailPage.organizations
-                        viewModel.loadSubDetails(page: page)
-                    }
-                } else {
-                    StarredRepositoriesListView(starredRepos: viewModel.starredRepos) {
-                        self.page = DetailPage.starred
-                        viewModel.loadSubDetails(page: page)
-                    }
-                }
+//                SlidingTabView(onSelect: { tab in
+//                    self.selectedTabIndex = tab
+////                    self.loadTabData(tab: tab)
+//                })
+                
+                UserDetailsTabView(username: user)
+                
             }
         }
     }
@@ -166,17 +155,17 @@ struct UserDetailsView: View {
             .edgesIgnoringSafeArea(.all)
     }
     
-    private func loadTabData(tab: Int) {
-        let page: DetailPage
-        if tab == 0 {
-            page = DetailPage.repositories
-        } else if tab == 1 {
-            page = DetailPage.organizations
-        } else {
-            page = DetailPage.starred
-        }
-        viewModel.loadSubDetails(page: page)
-    }
+//    private func loadTabData(tab: Int) {
+//        let page: DetailPage
+//        if tab == 0 {
+//            page = DetailPage.repositories
+//        } else if tab == 1 {
+//            page = DetailPage.organizations
+//        } else {
+//            page = DetailPage.starred
+//        }
+////        viewModel.loadSubDetails(page: page)
+//    }
 }
 
 public extension View {

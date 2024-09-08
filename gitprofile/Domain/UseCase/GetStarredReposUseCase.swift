@@ -40,7 +40,7 @@ class GetStarredReposUseCase {
     }
 }
 
-struct UserStarredReposUiModel {
+struct UserStarredReposUiModel: Equatable {
     var id: Int
     var name: String
     var ownerName: String

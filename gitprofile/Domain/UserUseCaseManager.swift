@@ -25,7 +25,7 @@ class UserUseCaseManager : UserDomainManager {
             .execute(username: username)
     }
     
-    func getUserDetails(username: String) async -> UsersViewState<UserDetailsResponse> {
+    func getUserDetails(username: String) async -> GenericViewState<UserDetailsUiModel> {
         return await component.providesGetUserDetailsUseCase()
             .execute(username: username)
     }

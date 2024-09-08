@@ -9,28 +9,30 @@ import SwiftUI
 
 struct RepositoryListView : View {
     
-    let repositories: LoadableViewState<[UserReposUiModel]>
-    let requestMore: () -> Void
+    let repoState: UserRepoStore
+    let username: String
     
     var body: some View {
         LazyVStack {
-            if case LoadableViewState.initial = repositories {
-                self.showLoadingView
-            } else if case let LoadableViewState.loaded(oldRepos) = repositories {
+            switch repoState.state.viewState {
+            case .initial:
+                showLoadingView
+            case .loaded(let oldRepos):
                 displayRepositories(oldRepos, true)
-            } else if case let LoadableViewState.success(repos) = repositories {
+            case .success(let repos):
                 displayRepositories(repos, false)
-            } else if case let LoadableViewState.endOfPaginatedReached(lastData) = repositories {
+            case .endOfPaginatedReached(let lastData):
                 displayRepositories(lastData, false, true)
+            default:
+                EmptyView()
             }
         }
         .padding(.horizontal)
         .listStyle(.plain)
         .scrollContentBackground(.hidden)
         .listRowSeparator(.visible)
-        
     }
-
+    
     @ViewBuilder
     private func displayRepositories(_ repos: [UserReposUiModel], _ showLoading: Bool, _ endOfPaginationReached: Bool = false) -> some View {
         if showLoading {
@@ -41,16 +43,14 @@ struct RepositoryListView : View {
                 .onAppear {
                     if repository.id == repos.last?.id {
                         if !endOfPaginationReached {
-                           // requestMore()
+                            // requestMore()
                         }
                     }
                 }
         }
         if !endOfPaginationReached {
             showLoadingView.onAppear {
-                requestMore()
-                print("RepositoryListView \(repos.count)")
-                print("OnAppear...")
+                repoState.send(.loadPage(username: username))
             }
         }
     }
@@ -63,6 +63,28 @@ struct RepositoryListView : View {
     }
 }
 
-#Preview {
-    RepositoryListView(repositories: LoadableViewState.initial) {}
+#if DEBUG
+struct RepositoryListViewPreview : View {
+    
+    let username = "forceporquillo"
+    
+    let store = GenericStore(
+        initialState: UserDetailsGenericState<UserReposUiModel>(viewState: .initial),
+        reduce: userRepoReducer
+    )
+    
+    var body: some View {
+        ScrollView {
+            RepositoryListView(repoState: store, username: username)
+        }
+        .task {
+            store.send(.loadPage(username: username))
+        }
+    }
 }
+
+#Preview {
+    RepositoryListViewPreview()
+}
+
+#endif

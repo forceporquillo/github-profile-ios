@@ -9,17 +9,15 @@ import SwiftUI
 
 struct UserListView: View {
     
-    @ObservedObject private var userViewModel = UsersViewModel()
-    @ObservedObject private var detailsViewModel = UserDetailsViewModel()
-    
+    @State private var store = UserStore(
+        initialState: .init(viewState: LoadableViewState.initial),
+        reduce: userReducer
+    )
+
     @State private var selectedUser = ""
-    
     @State private var shouldShowDestination = false
     @State private var searchQuery = ""
 
-    @Environment(\.isSearching) private var isSearching: Bool
-    @Environment(\.dismissSearch) private var dismissSearch
-    
     var body: some View {
         NavigationStack {
             contentView
@@ -30,26 +28,21 @@ struct UserListView: View {
         }
         .searchable(text: $searchQuery, prompt: "Search profile (e.g. \(String(describing: Bundle.main.infoDictionary?["USERNAME"] ?? "")))")
         .onSubmit(of: .search) {
-            Task {
-                await userViewModel.searchUser(query: searchQuery)
-            }
+            store.send(.search(query: searchQuery))
         }
         .onChange(of: searchQuery) {
             if searchQuery.isEmpty {
-                Task {
-                    await userViewModel.fetchUsers(!isSearching)
-                }
+                store.send(.paginate)
             }
-
         }
         .task {
-            await userViewModel.fetchUsers()
+            store.send(.paginate)
         }
     }
 
     @ViewBuilder
     private var contentView: some View {
-        switch userViewModel.viewState {
+        switch store.state.viewState {
         case.initial:
             ProgressView()
                 .progressViewStyle(.circular)
@@ -84,7 +77,7 @@ struct UserListView: View {
                     ProgressView().onAppear {
                         Task {
                             if searchQuery.isEmpty {
-                                await userViewModel.fetchUsers()
+                                store.send(.paginate)
                             }
                         }
                     }
