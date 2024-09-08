@@ -11,9 +11,9 @@ protocol UserDataManager {
     
     func loadUsers() async -> Result<[UserResponse], Error>
     func findUserDetails(username: String) async -> Result<UserDetailsResponse, Error>
-    func findUserRepos(username: String) async -> Result<DataSourceEntity<[RepositoriesResponse]>, Error>
-    func findUserStarredRepos(username: String) async -> Result<DataSourceEntity<[StarredRepoResponse]>, Error>
-    func findUserOrgs(username: String) async -> Result<DataSourceEntity<[UserOrgsResponse]>, Error>
+    func findUserRepos(username: String) async -> Result<PagingSourceEntity<[RepositoriesResponse]>, Error>
+    func findUserStarredRepos(username: String) async -> Result<PagingSourceEntity<[StarredRepoResponse]>, Error>
+    func findUserOrgs(username: String) async -> Result<PagingSourceEntity<[UserOrgsResponse]>, Error>
 }
 
 class UserNetworkDataManager : UserDataManager {
@@ -68,7 +68,7 @@ class UserNetworkDataManager : UserDataManager {
         }
     }
  
-    func findUserStarredRepos(username: String) async -> Result<DataSourceEntity<[StarredRepoResponse]>, Error> {
+    func findUserStarredRepos(username: String) async -> Result<PagingSourceEntity<[StarredRepoResponse]>, Error> {
         return await executePagingInternal(type: StarredRepoResponse.self, username: username, networkCall: { [self] handler, nextPage in
             let queryParams = [
                 URLQueryItem(name: "page", value: "\(nextPage)"),
@@ -79,14 +79,14 @@ class UserNetworkDataManager : UserDataManager {
         })
     }
     
-    func findUserOrgs(username: String) async -> Result<DataSourceEntity<[UserOrgsResponse]>, Error> {
+    func findUserOrgs(username: String) async -> Result<PagingSourceEntity<[UserOrgsResponse]>, Error> {
         return await executePagingInternal(type: UserOrgsResponse.self, username: username, networkCall: { [self] handler, _ in
             logger.log(message: "ApiCall: GetUserOrganizations for user: \(username)")
             component.providesGetUserOrgsNetworkCall().execute(username: username, completion: handler)
         })
     }
     
-    func findUserRepos(username: String) async -> Result<DataSourceEntity<[RepositoriesResponse]>, Error> {
+    func findUserRepos(username: String) async -> Result<PagingSourceEntity<[RepositoriesResponse]>, Error> {
         return await executePagingInternal(type: RepositoriesResponse.self, username: username, networkCall: { [self] handler, nextPage in
             let queryParams = [
                 URLQueryItem(name: "page", value: "\(nextPage)"),
@@ -104,32 +104,44 @@ class UserNetworkDataManager : UserDataManager {
         })
     }
     
-    private func executePagingInternal<T: Hashable>(type: T.Type, username: String, networkCall: @escaping (@escaping CompletionHandler<PagingData<[T]>>, Int) -> Void, map: @escaping ([T]) -> [T] = { data in data }) async -> Result<DataSourceEntity<[T]>, Error> {
+    private func executePagingInternal<T: Hashable>(
+        type: T.Type, 
+        username: String,
+        networkCall: @escaping (@escaping PagingCompletionHandler<T>, Int) -> Void,
+        map: @escaping ([T]) -> [T] = { data in data }
+    ) async -> Result<PagingSourceEntity<[T]>, Error> {
+        
         let repository = PagingRepositoryFactory.create(for: type)
+        
         return await withCheckedContinuation { continuation in
             let isEndOfPaginationReached = repository.getIsEndOfPagination(username: username)
             if isEndOfPaginationReached == true || repository.getNextPage(username: username) == endOfPaginationReached {
                 logger.log(message: "Loading paginated data from cache for user: \(username)")
                 let cacheRepos = map(repository.getData(username: username))
-                return continuation.resume(returning: .success(DataSourceEntity(data: cacheRepos, endOfPagination: true)))
+                return continuation.resume(returning: .success(PagingSourceEntity(data: cacheRepos, endOfPagination: true)))
             }
+        
             logger.log(message: "Fetching new data from remote for user: \(username)")
-            let handler: CompletionHandler<PagingData<[T]>> = { [self] result in
+            
+            let handler: PagingCompletionHandler<T> = { [self] result in
                 let mappedResult = result.map { response in
                     let (data, next, paginationEnded) = (response.data, response.next, response.endOfPaginationReached)
                     logger.log(message: "\(type): End of pagination reached for user \(username) result: \(paginationEnded)")
                     repository.saveData(username, data, next, paginationEnded)
-                    return DataSourceEntity(data: map(repository.getData(username: username)))
+                    return PagingSourceEntity(data: map(repository.getData(username: username)))
                 }
                 continuation.resume(returning: mappedResult)
             }
+            
             let nextPage = repository.getNextPage(username: username)
             networkCall(handler, nextPage)
         }
     }
 }
 
-struct DataSourceEntity<T> {
+typealias PagingCompletionHandler<T> = CompletionHandler<PagingData<[T]>>
+
+struct PagingSourceEntity<T> {
     var data: T
     var endOfPagination: Bool = false
 }
