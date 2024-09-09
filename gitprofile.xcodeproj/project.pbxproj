@@ -26,6 +26,7 @@
 		8B88FD902C810E08001F2733 /* StarredRepositoriesListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B88FD8F2C810E08001F2733 /* StarredRepositoriesListView.swift */; };
 		8B88FD922C810F9D001F2733 /* RepositoriesResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B88FD912C810F9D001F2733 /* RepositoriesResponse.swift */; };
 		8B9A27ED2C813A3F001F0C00 /* UserDetailsResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B9A27EC2C813A3F001F0C00 /* UserDetailsResponse.swift */; };
+		8BA7BCD82C8EFDC500E4281C /* SearchUserProxyStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BA7BCD72C8EFDC500E4281C /* SearchUserProxyStore.swift */; };
 		8BB8354C2C7AF1F8002C79E6 /* UserDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BB8354B2C7AF1F8002C79E6 /* UserDetailsView.swift */; };
 		8BCD6DD92C85B88A00A92BC8 /* UserDomainComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BCD6DD82C85B88A00A92BC8 /* UserDomainComponent.swift */; };
 		8BCD6DDB2C85B95600A92BC8 /* UserUseCaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BCD6DDA2C85B95600A92BC8 /* UserUseCaseManager.swift */; };
@@ -78,7 +79,7 @@
 		8B5AD3AA2C84E33F00AA2571 /* GetUserReposUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetUserReposUseCase.swift; sourceTree = "<group>"; };
 		8B5AD3AC2C84E85800AA2571 /* ApiConfig.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = ApiConfig.xcconfig; sourceTree = "<group>"; };
 		8B5AD3AE2C84EA3500AA2571 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
-		8B6EC8672C71DEE400CF7B77 /* gitprofile.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = gitprofile.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		8B6EC8672C71DEE400CF7B77 /* GitHub Profile.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "GitHub Profile.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8B6EC86A2C71DEE400CF7B77 /* gitprofileApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = gitprofileApp.swift; sourceTree = "<group>"; };
 		8B6EC86E2C71DEE600CF7B77 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		8B6EC8712C71DEE600CF7B77 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
@@ -88,6 +89,7 @@
 		8B88FD8F2C810E08001F2733 /* StarredRepositoriesListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StarredRepositoriesListView.swift; sourceTree = "<group>"; };
 		8B88FD912C810F9D001F2733 /* RepositoriesResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepositoriesResponse.swift; sourceTree = "<group>"; };
 		8B9A27EC2C813A3F001F0C00 /* UserDetailsResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDetailsResponse.swift; sourceTree = "<group>"; };
+		8BA7BCD72C8EFDC500E4281C /* SearchUserProxyStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchUserProxyStore.swift; sourceTree = "<group>"; };
 		8BB8354B2C7AF1F8002C79E6 /* UserDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDetailsView.swift; sourceTree = "<group>"; };
 		8BCD6DD82C85B88A00A92BC8 /* UserDomainComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDomainComponent.swift; sourceTree = "<group>"; };
 		8BCD6DDA2C85B95600A92BC8 /* UserUseCaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserUseCaseManager.swift; sourceTree = "<group>"; };
@@ -157,7 +159,7 @@
 		8B6EC8682C71DEE400CF7B77 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				8B6EC8672C71DEE400CF7B77 /* gitprofile.app */,
+				8B6EC8672C71DEE400CF7B77 /* GitHub Profile.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -203,8 +205,6 @@
 		8B6EC8812C72D91F00CF7B77 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				8B5AD3922C849D6F00AA2571 /* LanguageColors.swift */,
-				8BCD6E132C8DEBE500A92BC8 /* AppStore.swift */,
 				8B6EC8872C73411E00CF7B77 /* Details */,
 				8B6EC8862C73411600CF7B77 /* Users */,
 			);
@@ -217,6 +217,7 @@
 				8B6EC8822C72D94500CF7B77 /* UserListView.swift */,
 				8B6EC8842C72D9C700CF7B77 /* UserCardView.swift */,
 				8BCD6E0A2C8B4DB000A92BC8 /* UserState.swift */,
+				8BA7BCD72C8EFDC500E4281C /* SearchUserProxyStore.swift */,
 			);
 			path = Users;
 			sourceTree = "<group>";
@@ -224,6 +225,7 @@
 		8B6EC8872C73411E00CF7B77 /* Details */ = {
 			isa = PBXGroup;
 			children = (
+				8B5AD3922C849D6F00AA2571 /* LanguageColors.swift */,
 				8BF98C832C82250400E5139C /* StarredRepositories */,
 				8BF98C822C8224FE00E5139C /* Organizations */,
 				8BF98C812C8224F300E5139C /* Repositories */,
@@ -316,6 +318,7 @@
 		8BCD6E0C2C8C20EA00A92BC8 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				8BCD6E132C8DEBE500A92BC8 /* AppStore.swift */,
 				8BCD6E112C8DAE5F00A92BC8 /* LoggerFactory.swift */,
 				8BCD6E252C8E0C6200A92BC8 /* GenericViewState.swift */,
 				8BCD6E272C8E0C8000A92BC8 /* LoadableViewState.swift */,
@@ -356,9 +359,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		8B6EC8662C71DEE400CF7B77 /* gitprofile */ = {
+		8B6EC8662C71DEE400CF7B77 /* GitHub Profile */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 8B6EC8752C71DEE600CF7B77 /* Build configuration list for PBXNativeTarget "gitprofile" */;
+			buildConfigurationList = 8B6EC8752C71DEE600CF7B77 /* Build configuration list for PBXNativeTarget "GitHub Profile" */;
 			buildPhases = (
 				8B6EC8632C71DEE400CF7B77 /* Sources */,
 				8B6EC8642C71DEE400CF7B77 /* Frameworks */,
@@ -368,9 +371,9 @@
 			);
 			dependencies = (
 			);
-			name = gitprofile;
+			name = "GitHub Profile";
 			productName = gitprofile;
-			productReference = 8B6EC8672C71DEE400CF7B77 /* gitprofile.app */;
+			productReference = 8B6EC8672C71DEE400CF7B77 /* GitHub Profile.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -401,7 +404,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				8B6EC8662C71DEE400CF7B77 /* gitprofile */,
+				8B6EC8662C71DEE400CF7B77 /* GitHub Profile */,
 			);
 		};
 /* End PBXProject section */
@@ -465,6 +468,7 @@
 				8BCD6E1A2C8DF82200A92BC8 /* UserDetailsTabView.swift in Sources */,
 				8BCD6DFB2C8A912C00A92BC8 /* GetStarredReposNetworkCall.swift in Sources */,
 				8BCD6DD92C85B88A00A92BC8 /* UserDomainComponent.swift in Sources */,
+				8BA7BCD82C8EFDC500E4281C /* SearchUserProxyStore.swift in Sources */,
 				8BCD6DFF2C8AA9AE00A92BC8 /* OrganizationsView.swift in Sources */,
 				8BF98C852C82264300E5139C /* RepositoryListView.swift in Sources */,
 				8BCD6E052C8AC30700A92BC8 /* UserOrgsResponse.swift in Sources */,
@@ -615,10 +619,12 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = gitprofile/Info.plist;
-				INFOPLIST_KEY_LSApplicationCategoryType = "";
+				INFOPLIST_KEY_CFBundleDisplayName = "GitHub Profile";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UIStatusBarStyle = "";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -645,10 +651,12 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = gitprofile/Info.plist;
-				INFOPLIST_KEY_LSApplicationCategoryType = "";
+				INFOPLIST_KEY_CFBundleDisplayName = "GitHub Profile";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UIStatusBarStyle = "";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -675,7 +683,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		8B6EC8752C71DEE600CF7B77 /* Build configuration list for PBXNativeTarget "gitprofile" */ = {
+		8B6EC8752C71DEE600CF7B77 /* Build configuration list for PBXNativeTarget "GitHub Profile" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				8B6EC8762C71DEE600CF7B77 /* Debug */,

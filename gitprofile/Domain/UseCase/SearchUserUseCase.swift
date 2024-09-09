@@ -38,15 +38,24 @@ class SearchUserUseCase {
                 })
         }
         
-        return await dataManager.findUserDetails(username: cleanQueryName)
+        return await dataManager.findAllUserDetails(username: cleanQueryName)
             .fold(onSuccess: { details in
-                    .loaded(oldData: [
-                        UserUiModel(
-                            id: details.id ?? -1,
-                            login: details.login ?? "",
-                            avatarUrl: details.avatarUrl ?? ""
-                        )
-                    ])
+                let fileteredDetails = details.filter { detail in
+                    guard let _ = detail.login, let _ = detail.id else {
+                            return false
+                        }
+                        return true
+                }
+                if fileteredDetails.isEmpty {
+                    return .failure(message: "Cannot find user: \(username)")
+                }
+                return .loaded(oldData: fileteredDetails.map { detail in
+                    UserUiModel(
+                        id: detail.id!,
+                        login: detail.login!,
+                        avatarUrl: detail.avatarUrl
+                    )
+                })
             }, onFailure: { error in .failure(message: error.localizedDescription) })
     }
 }

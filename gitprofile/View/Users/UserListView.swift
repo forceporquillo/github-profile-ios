@@ -9,15 +9,23 @@ import SwiftUI
 
 struct UserListView: View {
     
-    @State private var store = UserStore(
-        initialState: .init(viewState: LoadableViewState.initial),
-        reduce: userReducer
-    )
-
+    @State private var usersStore: UserStore
+    @StateObject private var searchAppStore: SearchUserProxyStore
+    
     @State private var selectedUser = ""
     @State private var shouldShowDestination = false
     @State private var searchQuery = ""
-
+    @State private var defaultQueryHint = String(describing: Bundle.main.infoDictionary?["USERNAME"] ?? "")
+    
+    init() {
+        let initialUsersStore = UserStore(
+            initialState: .init(viewState: .initial),
+            reduce: userReducer
+        )
+        _usersStore = State(initialValue: initialUsersStore)
+        _searchAppStore = StateObject(wrappedValue: SearchUserProxyStore(userStore: initialUsersStore))
+    }
+    
     var body: some View {
         NavigationStack {
             contentView
@@ -26,23 +34,25 @@ struct UserListView: View {
                     UserDetailsView(user: selectedUser)
                 }
         }
-        .searchable(text: $searchQuery, prompt: "Search profile (e.g. \(String(describing: Bundle.main.infoDictionary?["USERNAME"] ?? "")))")
+        .searchable(text: $searchQuery, prompt: "Search profile (e.g. \(defaultQueryHint))")
         .onSubmit(of: .search) {
-            store.send(.search(query: searchQuery))
+            searchAppStore.dispatch(query: searchQuery)
         }
         .onChange(of: searchQuery) {
             if searchQuery.isEmpty {
-                store.send(.paginate)
+                usersStore.send(.paginate)
+            } else {
+                searchAppStore.dispatch(query: searchQuery)
             }
         }
         .task {
-            store.send(.paginate)
+            usersStore.send(.paginate)
         }
     }
-
+    
     @ViewBuilder
     private var contentView: some View {
-        switch store.state.viewState {
+        switch usersStore.state.viewState {
         case.initial:
             ProgressView()
                 .progressViewStyle(.circular)
@@ -62,7 +72,7 @@ struct UserListView: View {
             EmptyView()
         }
     }
- 
+    
     @ViewBuilder
     private func listView(repos: [UserUiModel], _ showLoading: Bool) -> some View {
         List {
@@ -70,14 +80,14 @@ struct UserListView: View {
                 UserCardView(user: user) {
                     self.selectedUser = user.login
                     self.shouldShowDestination = true
-                }.listRowSeparator(.hidden)
+                }
             }
             if showLoading {
                 HStack {
                     ProgressView().onAppear {
                         Task {
                             if searchQuery.isEmpty {
-                                store.send(.paginate)
+                                usersStore.send(.paginate)
                             }
                         }
                     }
@@ -88,7 +98,6 @@ struct UserListView: View {
         }
         .listStyle(.plain)
         .scrollDismissesKeyboard(.immediately)
-        .scrollIndicators(.hidden)
         .scrollContentBackground(.hidden)
     }
 }

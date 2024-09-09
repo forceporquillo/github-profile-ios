@@ -31,8 +31,13 @@ struct UserDetailsView: View {
                             .frame(width: 100, height: 100)
                             .clipShape(Circle())
                     } placeholder: {
-                        ProgressView()
-                            .progressViewStyle(.circular)
+                        ZStack {
+                            Circle()
+                                .frame(width: 100, height: 100)
+                                .foregroundColor(.card)
+                            ProgressView()
+                                .progressViewStyle(.circular)
+                        }
                     }
                     VStack(
                         alignment: .leading
@@ -86,8 +91,17 @@ struct UserDetailsView: View {
                 .clipped()
                 .edgesIgnoringSafeArea(.all)
         } placeholder: {
-            ProgressView()
-                .progressViewStyle(.circular)
+            ZStack {
+                Image(.githubFill)
+                    .resizable()
+                    .scaledToFill()
+                    .blur(radius: 40)
+                    .frame(maxWidth: .infinity, maxHeight: 180)
+                    .clipped()
+                    .edgesIgnoringSafeArea(.all)
+                ProgressView()
+                    .progressViewStyle(.circular)
+            }
         }
     }
 
@@ -115,6 +129,7 @@ struct UserDetailsView: View {
         }
     }
 
+    
     @ViewBuilder private var content: some View {
         switch detailsStore.state.viewState {
         case .initial:

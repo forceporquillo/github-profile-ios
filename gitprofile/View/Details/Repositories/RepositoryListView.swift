@@ -68,17 +68,17 @@ struct RepositoryListViewPreview : View {
     
     let username = "forceporquillo"
     
-    let store = GenericStore(
+    let usersStore = GenericStore(
         initialState: UserDetailsGenericState<UserReposUiModel>(viewState: .initial),
         reduce: userRepoReducer
     )
     
     var body: some View {
         ScrollView {
-            RepositoryListView(repoState: store, username: username)
+            RepositoryListView(repoState: usersStore, username: username)
         }
         .task {
-            store.send(.loadPage(username: username))
+            usersStore.send(.loadPage(username: username))
         }
     }
 }

@@ -24,7 +24,12 @@ struct StarredReposItemView : View {
                         .frame(width: 24, height: 24, alignment: .center)
                         .clipShape(/*@START_MENU_TOKEN@*/Circle()/*@END_MENU_TOKEN@*/)
                 } placeholder: {
-                    ProgressView()
+                    ZStack {
+                        Circle()
+                            .frame(width: 24, height: 24)
+                            .foregroundColor(.card)
+                        ProgressView()
+                    }
                 }
                 Text(starredRepoUiModel.ownerName)
                     .padding(.leading, 2)

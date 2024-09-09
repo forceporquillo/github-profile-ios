@@ -10,6 +10,7 @@ import Foundation
 protocol UserDataManager {
     
     func loadUsers() async -> Result<[UserResponse], Error>
+    func findAllUserDetails(username: String) async -> Result<[UserDetailsResponse], Error>
     func findUserDetails(username: String) async -> Result<UserDetailsResponse, Error>
     func findUserRepos(username: String) async -> Result<PagingSourceEntity<[RepositoriesResponse]>, Error>
     func findUserStarredRepos(username: String) async -> Result<PagingSourceEntity<[StarredRepoResponse]>, Error>
@@ -51,6 +52,17 @@ class UserNetworkDataManager : UserDataManager {
         }
     }
     
+    func findAllUserDetails(username: String) async -> Result<[UserDetailsResponse], Error> {
+        let userDetailsRepo = component.providesUserDetailsRepository()
+        let userDetails = userDetailsRepo.getAllUserDetails(username: username)
+            
+        if !userDetails.isEmpty {
+            return .success(userDetails)
+        }
+        
+        return await findUserDetails(username: username).map { response in [response] }
+    }
+    
     func findUserDetails(username: String) async -> Result<UserDetailsResponse, Error> {
         let userDetailsRepo = component.providesUserDetailsRepository()
         return await withCheckedContinuation { continuation in
@@ -67,7 +79,7 @@ class UserNetworkDataManager : UserDataManager {
             }
         }
     }
- 
+    
     func findUserStarredRepos(username: String) async -> Result<PagingSourceEntity<[StarredRepoResponse]>, Error> {
         return await executePagingInternal(type: StarredRepoResponse.self, username: username, networkCall: { [self] handler, nextPage in
             let queryParams = [
@@ -105,7 +117,7 @@ class UserNetworkDataManager : UserDataManager {
     }
     
     private func executePagingInternal<T: Hashable>(
-        type: T.Type, 
+        type: T.Type,
         username: String,
         networkCall: @escaping (@escaping PagingCompletionHandler<T>, Int) -> Void,
         map mappingFunc: @escaping ([T]) -> [T] = { data in data }
@@ -120,7 +132,7 @@ class UserNetworkDataManager : UserDataManager {
                 let cacheRepos = mappingFunc(repository.getData(username: username))
                 return continuation.resume(returning: .success(PagingSourceEntity(data: cacheRepos, endOfPagination: true)))
             }
-        
+            
             logger.log(message: "Fetching new data from remote for user: \(username)")
             
             let handler: PagingCompletionHandler<T> = { [self] result in

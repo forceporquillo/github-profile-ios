@@ -31,7 +31,7 @@ class GetUsersUseCase {
     }
 }
 
-struct UserUiModel: Equatable {
+struct UserUiModel: Equatable, Hashable {
     var id: Int
     var login: String
     var avatarUrl: String?
