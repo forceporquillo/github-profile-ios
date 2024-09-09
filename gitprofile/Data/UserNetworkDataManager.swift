@@ -21,7 +21,7 @@ class UserNetworkDataManager : UserDataManager {
     
     private let logger = LoggerFactory.create(clazz: UserNetworkDataManager.self)
     
-    private let endOfPaginationReached = -1
+    private let endOfPaginationReachedKey = -1
     private let pageSize = "20"
     
     private let component: UserDataComponent
@@ -55,11 +55,9 @@ class UserNetworkDataManager : UserDataManager {
     func findAllUserDetails(username: String) async -> Result<[UserDetailsResponse], Error> {
         let userDetailsRepo = component.providesUserDetailsRepository()
         let userDetails = userDetailsRepo.getAllUserDetails(username: username)
-            
         if !userDetails.isEmpty {
             return .success(userDetails)
         }
-        
         return await findUserDetails(username: username).map { response in [response] }
     }
     
@@ -126,8 +124,8 @@ class UserNetworkDataManager : UserDataManager {
         let repository = PagingRepositoryFactory.create(for: type)
         
         return await withCheckedContinuation { continuation in
-            let isEndOfPaginationReached = repository.getIsEndOfPagination(username: username)
-            if isEndOfPaginationReached == true || repository.getNextPage(username: username) == endOfPaginationReached {
+            let isPaginationReached = repository.isEndOfPagination(for: username)
+            if isPaginationReached == true || repository.getNextPage(username: username) == endOfPaginationReachedKey {
                 logger.log(message: "Loading paginated data from cache for user: \(username)")
                 let cacheRepos = mappingFunc(repository.getData(username: username))
                 return continuation.resume(returning: .success(PagingSourceEntity(data: cacheRepos, endOfPagination: true)))

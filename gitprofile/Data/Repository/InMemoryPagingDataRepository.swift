@@ -15,7 +15,7 @@ protocol UserReposRepository<Data> {
     func saveData(_ username: String, _ repos: [Data]?, _ next: Int, _ endOfPaginationReached: Bool)
     func getData(username: String) -> [Data]
     func getNextPage(username: String) -> Int
-    func getIsEndOfPagination(username: String) -> Bool?
+    func isEndOfPagination(for username: String) -> Bool?
 }
 
 class PagingRepositoryFactory {
@@ -52,23 +52,9 @@ class InMemoryPagingDataRepository<T : Hashable>: UserReposRepository {
     func saveData(_ username: String, _ repos: [Data]?, _ next: Int, _ endOfPaginationReached: Bool) {
         self.saveNextPage(username: username, page: next)
         self.endOfPaginationReached[username] = endOfPaginationReached
-        
         guard let repos = repos else {
             return
         }
-//        if var existingRepos = self.userRepos[username] {
-//            //            existingRepos.formUnion(repos)
-//            for repo in repos {
-//                existingRepos.insert(repo)
-//            }
-//            self.userRepos[username] = existingRepos
-//        } else {
-//            self.userRepos[username] = Set()
-//            for repo in repos {
-//                self.userRepos[username]?.insert(repo)
-//            }
-////            self.userRepos[username] = Set(repos)
-//        }
         if var existingRepos = self.userRepos[username] {
             existingRepos.append(contentsOf: repos)
             self.userRepos[username] = existingRepos
@@ -78,18 +64,13 @@ class InMemoryPagingDataRepository<T : Hashable>: UserReposRepository {
     }
     
     func getData(username: String) -> [Data] {
-        //        return self.userRepos[username]?.sorted {
-        //            guard let updatedAtA = $0.updatedAt else { return false }
-        //            guard let updateAtB = $1.updatedAt else { return false }
-        //            return updatedAtA > updateAtB
-        //        } ?? []
-        guard let data = self.userRepos[username] else {
-            return []
-        }
+        guard let data = self.userRepos[username] else { return [] }
+        logger.log(message: "retrieving cache data for \(username) size \(data.count)")
         return data
     }
     
-    func getIsEndOfPagination(username: String) -> Bool? {
+    func isEndOfPagination(for username: String) -> Bool? {
+        logger.log(message: "is end of pagination for user \(username) \(self.nextPage[username] ?? 1)")
         return self.endOfPaginationReached[username]
     }
     
