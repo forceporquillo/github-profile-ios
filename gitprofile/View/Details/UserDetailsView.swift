@@ -128,7 +128,6 @@ struct UserDetailsView: View {
             detailsStore.send(.fetch(username: user))
         }
     }
-
     
     @ViewBuilder private var content: some View {
         switch detailsStore.state.viewState {

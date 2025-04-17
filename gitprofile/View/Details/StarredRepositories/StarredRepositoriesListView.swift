@@ -21,7 +21,7 @@ struct StarredRepositoriesListView: View {
                 displayStarredRepositories(oldRepos, true)
             case .success(let repos):
                 displayStarredRepositories(repos, false)
-            case .failure(let message):
+            case .failure(_):
                 EmptyView()
             case .endOfPaginatedReached(let lastData):
                 displayStarredRepositories(lastData, false, true)

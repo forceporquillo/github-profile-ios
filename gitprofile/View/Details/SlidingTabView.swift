@@ -78,7 +78,7 @@ public struct SlidingTabView : View {
     // MARK: init
     
     public init(onSelect: @escaping (Int) -> Void,
-                tabs: [String] = ["Repositoties", "Organizations", "Starred"],
+                tabs: [String] = ["Repositories", "Organizations", "Starred"],
                 font: Font = .body,
                 animation: Animation = .spring(),
                 activeAccentColor: Color = .black,

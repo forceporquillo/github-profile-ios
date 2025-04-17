@@ -21,7 +21,7 @@ struct UserOrganizationsListView: View {
                 displayOrganizations(oldOrgs, true)
             case .success(let orgs):
                 displayOrganizations(orgs, false)
-            case .failure(let message):
+            case .failure( _):
                 EmptyView()
             case .endOfPaginatedReached(let lastData):
                 displayOrganizations(lastData, false, true)
