@@ -40,6 +40,7 @@ class SearchUserUseCase {
             }, onFailure: { error in [] })
         
         if !filtered.isEmpty {
+            cacheManager.store(object: filtered, forKey: cleanQueryName)
             return .loaded(oldData: filtered
                 .map { response in
                     return UserUiModel(
