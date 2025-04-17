@@ -7,6 +7,7 @@
 
 class SearchUserUseCase {
     
+    private let cacheManager = CacheManager.shared
     private let dataManager: UserDataManager
     
     init(_ dataManager: UserDataManager) {
@@ -16,6 +17,17 @@ class SearchUserUseCase {
     func execute(username: String) async -> LoadableViewState<[UserUiModel]> {
         let cleanQueryName = username.lowercased()
             .trimmingCharacters(in: .whitespacesAndNewlines)
+        
+        if let cachedResponse: [UserDetailsResponse] = cacheManager.retrieve(forKey: cleanQueryName) {
+            let uiModels = cachedResponse.map { response in
+                UserUiModel(
+                    id: response.id!,
+                    login: response.login!,
+                    avatarUrl: response.avatarUrl
+                )
+            }
+            return .loaded(oldData: uiModels)
+        }
         
         let filtered = await dataManager.loadUsers()
             .fold(onSuccess: { users in
@@ -40,16 +52,17 @@ class SearchUserUseCase {
         
         return await dataManager.findAllUserDetails(username: cleanQueryName)
             .fold(onSuccess: { details in
-                let fileteredDetails = details.filter { detail in
+                let filteredDetails = details.filter { detail in
                     guard let _ = detail.login, let _ = detail.id else {
                             return false
                         }
                         return true
                 }
-                if fileteredDetails.isEmpty {
+                if filteredDetails.isEmpty {
                     return .failure(message: "Cannot find user: \(username)")
                 }
-                return .loaded(oldData: fileteredDetails.map { detail in
+                cacheManager.store(object: filteredDetails, forKey: cleanQueryName)
+                return .loaded(oldData: filteredDetails.map { detail in
                     UserUiModel(
                         id: detail.id!,
                         login: detail.login!,
