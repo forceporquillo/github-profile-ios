@@ -7,13 +7,17 @@
 
 import Foundation
 
+/// Provides access to shared service instances.
 class ServiceLocator {
-    
+    /// Lazily loads and provides the user data manager.
     static let dataManager: UserDataManager = {
-        UserNetworkDataManager(UserDataComponentFactory())
+        let factory = UserDataComponentFactory()
+        return UserNetworkDataManager(factory)
     }()
-    
+
+    /// Lazily loads and provides the user domain manager.
     static let domainManager: UserDomainManager = {
-       return UserUseCaseManager(UserDomainComponentFactory())
+        let factory = UserDomainComponentFactory()
+        return UserUseCaseManager(factory)
     }()
 }
