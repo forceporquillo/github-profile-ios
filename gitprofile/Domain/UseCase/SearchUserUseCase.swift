@@ -51,7 +51,7 @@ class SearchUserUseCase {
                 })
         }
         
-        return await dataManager.findAllUserDetails(cleanQueryName)
+        return await dataManager.findAllUserDetails(username: cleanQueryName)
             .fold(onSuccess: { details in
                 let filteredDetails = details.filter { detail in
                     guard let _ = detail.login, let _ = detail.id else {

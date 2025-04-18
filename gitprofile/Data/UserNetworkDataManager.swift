@@ -10,7 +10,8 @@ import Foundation
 protocol UserDataManager {
     
     func loadUsers() async -> Result<[UserResponse], Error>
-    func findAllUserDetails(_ username: String) async -> Result<[UserDetailsResponse], Error>
+    func findAllUserDetails() async -> Result<[UserDetailsResponse], Error>
+    func findAllUserDetails(username: String) async -> Result<[UserDetailsResponse], Error>
     func findUserDetails(username: String) async -> Result<UserDetailsResponse, Error>
     func findUserRepos(username: String) async -> Result<PagingSourceEntity<[RepositoriesResponse]>, Error>
     func findUserStarredRepos(username: String) async -> Result<PagingSourceEntity<[StarredRepoResponse]>, Error>
@@ -52,9 +53,15 @@ class UserNetworkDataManager : UserDataManager {
         }
     }
     
-    func findAllUserDetails(_ username: String) async -> Result<[UserDetailsResponse], Error> {
+    func findAllUserDetails() async -> Result<[UserDetailsResponse], any Error> {
         let userDetailsRepo = component.providesUserDetailsRepository()
-        let userDetails = username == "*" ? userDetailsRepo.getAllUserDetails() : userDetailsRepo.getAllUserDetails(username: username)
+        let userDetails = userDetailsRepo.getAllUserDetails()
+        return .success(userDetails)
+    }
+    
+    func findAllUserDetails(username: String) async -> Result<[UserDetailsResponse], Error> {
+        let userDetailsRepo = component.providesUserDetailsRepository()
+        let userDetails = userDetailsRepo.getAllUserDetails(username: username)
         if !userDetails.isEmpty {
             return .success(userDetails)
         }

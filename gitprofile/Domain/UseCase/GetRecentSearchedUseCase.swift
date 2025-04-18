@@ -17,7 +17,7 @@ class GetRecentSearchedUseCase {
     }
     
     func execute() async -> LoadableViewState<[UserUiModel]> {
-        return await dataManager.findAllUserDetails("*")
+        return await dataManager.findAllUserDetails()
             .fold(
                 onSuccess: { userDetails in
                     return .loaded(
