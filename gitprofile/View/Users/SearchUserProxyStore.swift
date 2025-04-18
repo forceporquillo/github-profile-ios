@@ -23,7 +23,7 @@ class SearchUserProxyStore: ObservableObject {
     
     private func startObserver() {
         searchSubject
-            .debounce(for: .milliseconds(500), scheduler: RunLoop.main)
+            .debounce(for: .milliseconds(700), scheduler: RunLoop.main)
             .sink { [weak self] searchText in
                 self?.userStore.send(.search(query: searchText))
             }

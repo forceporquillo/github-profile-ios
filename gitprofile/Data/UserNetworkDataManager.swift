@@ -10,7 +10,7 @@ import Foundation
 protocol UserDataManager {
     
     func loadUsers() async -> Result<[UserResponse], Error>
-    func findAllUserDetails(username: String) async -> Result<[UserDetailsResponse], Error>
+    func findAllUserDetails(_ username: String) async -> Result<[UserDetailsResponse], Error>
     func findUserDetails(username: String) async -> Result<UserDetailsResponse, Error>
     func findUserRepos(username: String) async -> Result<PagingSourceEntity<[RepositoriesResponse]>, Error>
     func findUserStarredRepos(username: String) async -> Result<PagingSourceEntity<[StarredRepoResponse]>, Error>
@@ -52,9 +52,9 @@ class UserNetworkDataManager : UserDataManager {
         }
     }
     
-    func findAllUserDetails(username: String) async -> Result<[UserDetailsResponse], Error> {
+    func findAllUserDetails(_ username: String) async -> Result<[UserDetailsResponse], Error> {
         let userDetailsRepo = component.providesUserDetailsRepository()
-        let userDetails = userDetailsRepo.getAllUserDetails(username: username)
+        let userDetails = username == "*" ? userDetailsRepo.getAllUserDetails() : userDetailsRepo.getAllUserDetails(username: username)
         if !userDetails.isEmpty {
             return .success(userDetails)
         }
@@ -105,12 +105,6 @@ class UserNetworkDataManager : UserDataManager {
             ]
             logger.log(message: "ApiCall: GetRepositories for user: \(username), params: \(queryParams)")
             component.providesGetRepositoriesNetworkCall().execute(username: username, params: queryParams, completion: handler)
-        }, map: { repos in
-            repos.sorted(by: {
-                guard let updatedAtA = $0.updatedAt else { return false }
-                guard let updateAtB = $1.updatedAt else { return false }
-                return updatedAtA > updateAtB
-            })
         })
     }
     
