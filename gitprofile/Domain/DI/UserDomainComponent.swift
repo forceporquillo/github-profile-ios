@@ -13,6 +13,7 @@ protocol UserDomainComponent {
     func providesGetStarredReposUseCase() -> GetStarredReposUseCase
     func providesGetUserOrgsUseCase() -> GetUserOrgsUseCase
     func providesSearchUserUseCase() -> SearchUserUseCase
+    func providesGetRecentSearchedUseCase() -> GetRecentSearchedUseCase
 }
 
 private class UserComponentImpl : UserDomainComponent {
@@ -26,7 +27,8 @@ private class UserComponentImpl : UserDomainComponent {
     private static let getStarredReposUseCase = GetStarredReposUseCase(ServiceLocator.dataManager)
     private static let getUserOrgsUseCase = GetUserOrgsUseCase(ServiceLocator.dataManager)
     private static let searchUserUseCase = SearchUserUseCase(ServiceLocator.dataManager)
-
+    private static let getSearchedUsersUseCase = GetRecentSearchedUseCase(ServiceLocator.dataManager)
+    
     func providesGetUsersUseCase() -> GetUsersUseCase {
         return UserComponentImpl.getUserUseCase
     }
@@ -49,6 +51,10 @@ private class UserComponentImpl : UserDomainComponent {
     
     func providesSearchUserUseCase() -> SearchUserUseCase {
         return UserComponentImpl.searchUserUseCase
+    }
+    
+    func providesGetRecentSearchedUseCase() -> GetRecentSearchedUseCase {
+        return UserComponentImpl.getSearchedUsersUseCase
     }
 }
 

@@ -65,6 +65,7 @@
 		8BEAA1A32C7E595F00AEDB6D /* RepositoryItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BEAA1A22C7E595F00AEDB6D /* RepositoryItemView.swift */; };
 		8BF98C852C82264300E5139C /* RepositoryListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BF98C842C82264300E5139C /* RepositoryListView.swift */; };
 		8E28FCCA2DB157FC00533133 /* CacheManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E28FCC92DB157F900533133 /* CacheManager.swift */; };
+		8E28FCCE2DB1EA5600533133 /* GetRecentSearchedUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E28FCCD2DB1EA5600533133 /* GetRecentSearchedUseCase.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -128,6 +129,7 @@
 		8BEAA1A22C7E595F00AEDB6D /* RepositoryItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepositoryItemView.swift; sourceTree = "<group>"; };
 		8BF98C842C82264300E5139C /* RepositoryListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepositoryListView.swift; sourceTree = "<group>"; };
 		8E28FCC92DB157F900533133 /* CacheManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CacheManager.swift; sourceTree = "<group>"; };
+		8E28FCCD2DB1EA5600533133 /* GetRecentSearchedUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetRecentSearchedUseCase.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -250,6 +252,7 @@
 				8BCD6DFC2C8A928500A92BC8 /* GetStarredReposUseCase.swift */,
 				8BCD6E062C8AC90D00A92BC8 /* GetUserOrgsUseCase.swift */,
 				8BCD6E0F2C8C44B100A92BC8 /* SearchUserUseCase.swift */,
+				8E28FCCD2DB1EA5600533133 /* GetRecentSearchedUseCase.swift */,
 			);
 			path = UseCase;
 			sourceTree = "<group>";
@@ -421,6 +424,7 @@
 				8B5AD3AD2C84E85800AA2571 /* ApiConfig.xcconfig in Resources */,
 				8B5AD3962C84A58400AA2571 /* github_languages.json in Resources */,
 				8B6EC86F2C71DEE600CF7B77 /* Assets.xcassets in Resources */,
+				8E455A9E2D6EB7A4002E37D2 /* UserListViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -449,6 +453,7 @@
 				8BCD6DE22C85C0C500A92BC8 /* UserDataComponent.swift in Sources */,
 				8B6EC8832C72D94500CF7B77 /* UserListView.swift in Sources */,
 				8B5AD3832C83B7BE00AA2571 /* NetworkComponent.swift in Sources */,
+				8E28FCCE2DB1EA5600533133 /* GetRecentSearchedUseCase.swift in Sources */,
 				8BEAA1A12C7E316500AEDB6D /* SlidingTabView.swift in Sources */,
 				8BCD6E032C8AC28F00A92BC8 /* GetUserOrgsNetworkCall.swift in Sources */,
 				8BCD6DF92C8A8A2400A92BC8 /* PaginatedNetworkCall.swift in Sources */,

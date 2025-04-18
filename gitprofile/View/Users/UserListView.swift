@@ -17,6 +17,8 @@ struct UserListView: View {
     @State private var searchQuery = ""
     @State private var defaultQueryHint = String(describing: Bundle.main.infoDictionary?["USERNAME"] ?? "")
     
+    @Environment(\.isSearching) private var isSearching
+    
     init() {
         let initialUsersStore = UserStore(
             initialState: .init(viewState: .initial),
@@ -56,8 +58,8 @@ struct UserListView: View {
         case.initial:
             ProgressView()
                 .progressViewStyle(.circular)
-        case .success(let repos):
-            listView(repos: repos, true)
+        case .success(let users):
+            listView(users: users, true)
         case .failure(let message):
             VStack {
                 Text("Ops! Sorry, we run into an error")
@@ -66,38 +68,79 @@ struct UserListView: View {
                     .multilineTextAlignment(.center)
                     .font(.caption)
             }.padding(.horizontal, 16)
-        case .loaded(let oldUsers):
-            listView(repos: oldUsers, false)
+        case .loaded(let users):
+            listView(users: users, false)
         case .endOfPaginatedReached(_):
             EmptyView()
         }
     }
     
     @ViewBuilder
-    private func listView(repos: [UserUiModel], _ showLoading: Bool) -> some View {
-        List {
-            ForEach(repos, id: \.id) { user in
-                UserCardView(user: user) {
-                    self.selectedUser = user.login
-                    self.shouldShowDestination = true
-                }
+    private func listView(users: [UserUiModel], _ showLoading: Bool) -> some View {
+        SearchAwareListView(
+            users: users,
+            showLoading: showLoading,
+            showRecentSearchTitle: usersStore.state.lastAction == .recentSearch,
+            selectedUser: $selectedUser,
+            shouldShowDestination: $shouldShowDestination,
+            searchQuery: $searchQuery,
+            onSearchAction: { action in
+                usersStore.send(action)
             }
-            if showLoading {
-                HStack {
-                    ProgressView().onAppear {
-                        Task {
-                            if searchQuery.isEmpty {
-                                usersStore.send(.paginate)
+        )
+    }
+}
+
+struct SearchAwareListView : View {
+    
+    @Environment(\.isSearching) private var isSearching
+    
+    let users: [UserUiModel]
+    let showLoading: Bool
+    let showRecentSearchTitle: Bool
+    
+    @Binding var selectedUser: String
+    @Binding var shouldShowDestination: Bool
+    @Binding var searchQuery: String
+    
+    let onSearchAction: (UserAction) -> Void
+    
+    var body: some View {
+        VStack(alignment: .leading) {
+            if !users.isEmpty, showRecentSearchTitle {
+                Text("Recent Searches...")
+                    .font(.subheadline)
+                    .fontWeight(.bold)
+                    .padding(.top)
+                    .padding(.leading)
+            }
+            List {
+                ForEach(users, id: \.id) { user in
+                    UserCardView(user: user) {
+                        self.selectedUser = user.login
+                        self.shouldShowDestination = true
+                    }
+                }
+                if showLoading {
+                    HStack {
+                        ProgressView().onAppear {
+                            Task {
+                                if searchQuery.isEmpty {
+                                    onSearchAction(.paginate)
+                                }
                             }
                         }
                     }
+                    .frame(maxWidth: .infinity)
+                    .listRowSeparator(.hidden)
                 }
-                .frame(maxWidth: .infinity)
-                .listRowSeparator(.hidden)
             }
         }
         .listStyle(.plain)
         .scrollDismissesKeyboard(.immediately)
         .scrollContentBackground(.hidden)
+        .onChange(of: isSearching) { _, isSearching in
+            onSearchAction(isSearching ? .recentSearch : .paginate)
+        }
     }
 }

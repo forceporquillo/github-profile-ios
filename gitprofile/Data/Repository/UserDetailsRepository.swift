@@ -8,6 +8,7 @@
 import Foundation
 
 protocol UserDetailsRepository {
+    func getAllUserDetails() -> [UserDetailsResponse]
     func getAllUserDetails(username: String) -> [UserDetailsResponse]
     func getUserDetails(username: String) -> UserDetailsResponse?
     func saveUserDetails(userDetails: UserDetailsResponse)
@@ -76,4 +77,16 @@ class UserDetailsRepositoryImpl : UserDetailsRepository {
         return matchingUsers
     }
     
+    func getAllUserDetails() -> [UserDetailsResponse] {
+        var collections: [UserDetailsResponse] = []
+        let prefixes = getPrefixes()
+        
+        for prefix in prefixes {
+            let key = cacheKey(for: prefix)
+            if let userDetails: UserDetailsResponse = cacheManager.retrieve(forKey: key){
+                collections.append(userDetails)
+            }
+        }
+        return collections
+    }
 }

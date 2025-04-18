@@ -14,4 +14,5 @@ protocol UserDomainManager {
     func getStarredRepos(username: String) async -> LoadableViewState<[UserStarredReposUiModel]>
     func getUserOrgs(username: String) async -> LoadableViewState<[UserOrgsUiModel]>
     func searchUser(query: String) async -> LoadableViewState<[UserUiModel]>
+    func getRecentSearches() async -> LoadableViewState<[UserUiModel]>
 }
