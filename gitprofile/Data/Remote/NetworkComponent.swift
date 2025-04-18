@@ -31,6 +31,10 @@ struct NetworkComponent {
         let urlCache = URLCache(memoryCapacity: memoryCapacity, diskCapacity: diskCapacity, diskPath: "gitprofile")
         let urlSessionConfig = NetworkComponent.createDefaultURLSessionConfig(urlCache)
         self.session = URLSession(configuration: urlSessionConfig)
+        
+        // Shared Global: async image download
+        URLCache.shared.memoryCapacity = memoryCapacity
+        URLCache.shared.diskCapacity = diskCapacity
     }
 
    static func createDefaultURLSessionConfig(_ urlCache: URLCache) -> URLSessionConfiguration {

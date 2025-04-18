@@ -31,7 +31,8 @@ class GetAllUsersNetworkCall {
     ) {
         urlComponents.queryItems = params
 
-        let urlRequest = NetworkComponent.createUrlRequest(url: self.urlComponents.url!, method: "GET")
+        var urlRequest = NetworkComponent.createUrlRequest(url: self.urlComponents.url!, method: "GET")
+        urlRequest.cachePolicy = .returnCacheDataElseLoad
         logger.log(message: String(describing: urlRequest))
 //        switch strategy {
 //        case .cacheOverRemote:
