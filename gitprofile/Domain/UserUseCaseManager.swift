@@ -44,4 +44,10 @@ class UserUseCaseManager : UserDomainManager {
         return await component.providesSearchUserUseCase()
             .execute(username: query)
     }
+    
+    func getRecentSearches() async -> LoadableViewState<[UserUiModel]> {
+        return await component.providesGetRecentSearchedUseCase()
+            .execute()
+    }
+    
 }
