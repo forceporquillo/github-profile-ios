@@ -8,7 +8,7 @@
 import Foundation
 
 protocol UserDomainManager {
-    func getUsers() async -> LoadableViewState<[UserUiModel]>
+    func getUsers(strategy: FetchStrategy) async -> LoadableViewState<[UserUiModel]>
     func getUserRepos(username: String) async -> LoadableViewState<[UserReposUiModel]>
     func getUserDetails(username: String) async -> GenericViewState<UserDetailsUiModel>
     func getStarredRepos(username: String) async -> LoadableViewState<[UserStarredReposUiModel]>

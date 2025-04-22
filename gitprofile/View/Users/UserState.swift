@@ -12,30 +12,33 @@ struct UserState: Equatable {
 
 enum UserAction: Equatable {
     case invalidate
-    case paginate
+    case paginate(FetchStrategy)
     case recentSearch
     case search(query: String)
 }
 
 let userReducer: (UserState, UserAction) async -> UserState = { state, action in
+    let domainManager = ServiceLocator.domainManager
+    
     var newState = state
     newState.lastAction = action
+    
     switch action {
     case .invalidate:
         newState.viewState = .initial
     case .search(let query):
-        newState.viewState = await ServiceLocator.domainManager.searchUser(query: query)
-    case .paginate:
-        newState.viewState = await ServiceLocator.domainManager.getUsers()
+        newState.viewState = await domainManager.searchUser(query: query)
+    case .paginate(let strategy):
+        newState.viewState = await domainManager.getUsers(strategy: strategy)
     case .recentSearch:
-        let recentSearchesResult = await ServiceLocator.domainManager.getRecentSearches()
-        if case .loaded(let recentSearches) = recentSearchesResult {
+        let recentSearchedResult = await domainManager.getRecentSearches()
+        if case .loaded(let recentSearches) = recentSearchedResult {
             if !recentSearches.isEmpty {
                 newState.viewState = .loaded(oldData: recentSearches)
             } else {
                 newState.lastAction = nil
             }
-        } else if case .failure(let message) = recentSearchesResult {
+        } else if case .failure(let message) = recentSearchedResult {
             newState.viewState = .failure(message: message)
         }
     }

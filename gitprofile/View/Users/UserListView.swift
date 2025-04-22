@@ -42,13 +42,13 @@ struct UserListView: View {
         }
         .onChange(of: searchQuery) {
             if searchQuery.isEmpty {
-                usersStore.send(.paginate)
+                usersStore.send(.paginate(.cacheOverRemote))
             } else {
                 searchAppStore.dispatch(query: searchQuery)
             }
         }
         .task {
-            usersStore.send(.paginate)
+            usersStore.send(.paginate(.invalidateRemotely))
         }
     }
     
@@ -126,7 +126,7 @@ struct SearchAwareListView : View {
                         ProgressView().onAppear {
                             Task {
                                 if searchQuery.isEmpty {
-                                    onSearchAction(.paginate)
+                                    onSearchAction(.paginate(.invalidateRemotely))
                                 }
                             }
                         }
@@ -140,7 +140,7 @@ struct SearchAwareListView : View {
         .scrollDismissesKeyboard(.immediately)
         .scrollContentBackground(.hidden)
         .onChange(of: isSearching) { _, isSearching in
-            onSearchAction(isSearching ? .recentSearch : .paginate)
+            onSearchAction(isSearching ? .recentSearch : .paginate(.cacheOverRemote))
         }
     }
 }

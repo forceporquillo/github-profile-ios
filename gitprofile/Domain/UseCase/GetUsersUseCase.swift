@@ -15,8 +15,8 @@ class GetUsersUseCase {
         self.dataManager = dataManager
     }
     
-    func execute() async -> LoadableViewState<[UserUiModel]> {
-        return await dataManager.loadUsers()
+    func execute(_ strategy: FetchStrategy) async -> LoadableViewState<[UserUiModel]> {
+        return await dataManager.loadUsers(strategy)
             .fold(onSuccess: { users in
                 .success(data: users.map { user in
                     UserUiModel(

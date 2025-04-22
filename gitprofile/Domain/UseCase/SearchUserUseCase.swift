@@ -29,7 +29,7 @@ class SearchUserUseCase {
             return .loaded(oldData: uiModels)
         }
         
-        let filtered = await dataManager.loadUsers()
+        let filtered = await dataManager.loadUsers(.cacheOverRemote)
             .fold(onSuccess: { users in
                 users.filter {
                     guard let login = $0.login, let _ = $0.id else {

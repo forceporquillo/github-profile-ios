@@ -15,9 +15,9 @@ class UserUseCaseManager : UserDomainManager {
         self.component = factory.create()
     }
 
-    func getUsers() async -> LoadableViewState<[UserUiModel]> {
+    func getUsers(strategy: FetchStrategy) async -> LoadableViewState<[UserUiModel]> {
         return await component.providesGetUsersUseCase()
-            .execute()
+            .execute(strategy)
     }
 
     func getUserRepos(username: String) async -> LoadableViewState<[UserReposUiModel]> {

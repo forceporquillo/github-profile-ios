@@ -9,7 +9,7 @@ import Foundation
 
 protocol UserDataManager {
     
-    func loadUsers() async -> Result<[UserResponse], Error>
+    func loadUsers(_ strategy: FetchStrategy) async -> Result<[UserResponse], Error>
     func findAllUserDetails() async -> Result<[UserDetailsResponse], Error>
     func findAllUserDetails(username: String) async -> Result<[UserDetailsResponse], Error>
     func findUserDetails(username: String) async -> Result<UserDetailsResponse, Error>
@@ -31,8 +31,16 @@ class UserNetworkDataManager : UserDataManager {
         self.component = factory.create()
     }
     
-    func loadUsers() async -> Result<[UserResponse], Error> {
+    func loadUsers(_ strategy: FetchStrategy) async -> Result<[UserResponse], Error> {
         let userRepo = component.providesUsersRepository()
+        
+        if strategy == .cacheOverRemote {
+            let cachedUsers = userRepo.getUsers()
+            if !cachedUsers.isEmpty {
+                return .success(cachedUsers)
+            }
+        }
+        
         let queryParams = [
             URLQueryItem(name: "since", value: "\(userRepo.getNextPage())"),
             URLQueryItem(name: "per_page", value: pageSize)
